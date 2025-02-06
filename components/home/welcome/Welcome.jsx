@@ -61,6 +61,7 @@ const Welcome = () => {
           }}
           keyExtractor={(item) => item}
           contentContainerStyle={{ columnGap: SIZES.small }}
+          showsHorizontalScrollIndicator={false}
           horizontal
         />
       </View>

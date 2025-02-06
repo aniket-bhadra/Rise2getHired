@@ -1,5 +1,12 @@
 {
-  "cSpell.words": ["gethired", "Nearbyjobs", "Popularjobs"],
+  "cSpell.words": [
+    "defualt",
+    "gethired",
+    "jsearch",
+    "Nearbyjobs",
+    "Popularjobs",
+    "rapidapi"
+  ],
   "workbench.colorCustomizations": {
     "activityBar.activeBackground": "#65c89b",
     "activityBar.background": "#65c89b",
