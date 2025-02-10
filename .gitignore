@@ -36,6 +36,8 @@ yarn-error.*
 secure.js
 mockSearchData.json
 mockJobDetails.json
+theme2.js
+colors.js
 
 # typescript
 *.tsbuildinfo

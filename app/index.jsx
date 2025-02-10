@@ -1,52 +1,28 @@
 import React, { useState } from "react";
-import { View, Text, ScrollView } from "react-native";
-import { SafeAreaView } from "react-native-safe-area-context";
-import { Stack, useRouter } from "expo-router";
-import { COLORS, icons, images, SIZES } from "../constants";
-import {
-  Nearbyjobs,
-  Popularjobs,
-  ScreenHeaderBtn,
-  Welcome,
-} from "../components";
+import { View, Image, TouchableOpacity, Text } from "react-native";
+import Signup from "../components/authComponent/signup";
+import Login from "../components/authComponent/login";
+import styles from "../components/authComponent/styles";
+import { useRouter } from "expo-router";
 
-const Home = () => {
+export default function loginOrSignup() {
+  const [isLogin, setIsLogin] = useState(false);
   const router = useRouter();
-  const [searchTerm, setSearchTerm] = useState("");
-  return (
-    <SafeAreaView style={{ flex: 1, backgroundColor: COLORS.lightWhite }}>
-      <Stack.Screen
-        options={{
-          headerStyle: {
-            backgroundColor: COLORS.lightWhite,
-          },
-          headerShadowVisible: false,
-          headerLeft: () => (
-            <ScreenHeaderBtn iconUrl={icons.menu} dimensions="60%" />
-          ),
-          headerRight: () => (
-            <ScreenHeaderBtn iconUrl={images.profile} dimensions="100%" />
-          ),
-          headerTitle: "",
-        }}
-      />
-      <ScrollView showsVerticalScrollIndicator={false}>
-        <View style={{ flex: 1, padding: SIZES.medium }}>
-          <Welcome
-            searchTerm={searchTerm}
-            setSearchTerm={setSearchTerm}
-            handleClick={() => {
-              if (searchTerm) {
-                router.push(`/search/${searchTerm}`);
-              }
-            }}
-          />
-          <Popularjobs />
-          <Nearbyjobs />
-        </View>
-      </ScrollView>
-    </SafeAreaView>
-  );
-};
 
-export default Home;
+  return (
+    <View style={styles.container}>
+      <Image source={require("../assets/logo.png")} style={styles.logo} />
+      <Text style={styles.logoText}>Rise2GetHired</Text>
+
+      {isLogin ? <Login /> : <Signup />}
+
+      <TouchableOpacity onPress={() => setIsLogin(!isLogin)}>
+        <Text style={styles.switchText}>
+          {isLogin
+            ? "Don't have an account? Sign Up"
+            : "Already have an account? Log In"}
+        </Text>
+      </TouchableOpacity>
+    </View>
+  );
+}

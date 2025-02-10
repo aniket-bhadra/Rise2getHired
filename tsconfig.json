@@ -3,15 +3,13 @@
   "compilerOptions": {
     "strict": true,
     "paths": {
-      "@/*": [
-        "./*"
-      ]
+      "@/*": ["./*"]
     }
   },
   "include": [
     "**/*.ts",
     "**/*.tsx",
     "app/_layout.jsx",
-    "app/index.jsx"
+    "app/(tabs)/jobs/jobs-home.jsx"
   ]
 }

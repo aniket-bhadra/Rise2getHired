@@ -11,11 +11,11 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import { Stack, useLocalSearchParams, useRouter } from "expo-router";
 import { Text } from "react-native";
 import axios from "axios";
-import keys from "../../secure";
+import keys from "../../../../secure";
 
-import { ScreenHeaderBtn, NearbyJobCard } from "../../components";
-import { COLORS, icons, SIZES } from "../../constants";
-import styles from "../../styles/search";
+import { ScreenHeaderBtn, NearbyJobCard } from "../../../../components";
+import { COLORS, icons, SIZES } from "../../../../constants";
+import styles from "../../../../styles/search";
 const JobSearch = () => {
   const { id } = useLocalSearchParams();
   const router = useRouter();

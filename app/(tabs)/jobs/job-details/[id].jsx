@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useCallback, useState } from "react";
 import {
   View,
   Text,
@@ -17,15 +17,15 @@ import {
   JobTabs,
   ScreenHeaderBtn,
   Specifics,
-} from "../../components";
+} from "../../../../components";
 
-import { COLORS, icons, SIZES } from "../../constants";
+import { COLORS, icons, SIZES } from "../../../../constants";
 
 //! uncomment this
-// import useFetch from "../../hook/useFetch";
+import useFetch from "../../../../hook/useFetch";
 
 //! remove this
-import data from "../../mockJobDetails.json";
+import data from "../../../../mockJobDetails.json";
 
 const tabs = ["About", "Qualifications", "Responsibilities"];
 const JobDetails = () => {
@@ -39,7 +39,11 @@ const JobDetails = () => {
   const error = null;
   const [refreshing, setRefreshing] = useState(false);
   const [activeTab, setActiveTab] = useState(tabs[0]);
-  const onRefresh = () => {};
+  const onRefresh = useCallback(() => {
+    setRefreshing(true);
+    refetch();
+    setRefreshing(false);
+  }, []);
   const displayTabContent = () => {
     switch (activeTab) {
       case "Qualifications":
