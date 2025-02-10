@@ -35,7 +35,7 @@ yarn-error.*
 
 secure.js
 mockSearchData.json
-mockJobDetailsData.json
+mockJobDetails.json
 
 # typescript
 *.tsbuildinfo

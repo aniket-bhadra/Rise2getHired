@@ -29,7 +29,10 @@ const Popularjobs = () => {
   const isLoading = false;
   const error = null;
 
-  const handleCardPress = (item) => {};
+  const handleCardPress = (item) => {
+    // ! uncomment this
+    // router.push(`job-details/${item.job_id}`);
+  };
 
   return (
     <View style={styles.container}>
