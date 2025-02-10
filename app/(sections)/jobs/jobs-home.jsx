@@ -42,11 +42,6 @@ const Home = () => {
             }}
           />
           <Popularjobs />
-          <Link href={`/login-or-signup`} asChild>
-            <Pressable>
-              <Text>click</Text>
-            </Pressable>
-          </Link>
           <Nearbyjobs />
         </View>
       </ScrollView>
