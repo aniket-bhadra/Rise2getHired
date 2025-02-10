@@ -26,36 +26,37 @@ const JobSearch = () => {
   const [page, setPage] = useState(1);
   const [totalJobs, setTotalJobs] = useState(null);
 
-  const handleSearch = async () => {
-    setSearchLoader(true);
-    //  setSearchResult([]);
+  // ! uncomment this
+//   const handleSearch = async () => {
+//     setSearchLoader(true);
+//     //  setSearchResult([]);
 
-    try {
-      const options = {
-        method: "GET",
-        url: `https://jsearch.p.rapidapi.com/search`,
-        headers: {
-          "X-RapidAPI-Key": keys.RapidApiKey,
-          "X-RapidAPI-Host": "jsearch.p.rapidapi.com",
-        },
-        params: {
-          query: id,
-          page: page.toString(),
-        },
-      };
+//     try {
+//       const options = {
+//         method: "GET",
+//         url: `https://jsearch.p.rapidapi.com/search`,
+//         headers: {
+//           "X-RapidAPI-Key": keys.RapidApiKey,
+//           "X-RapidAPI-Host": "jsearch.p.rapidapi.com",
+//         },
+//         params: {
+//           query: id,
+//           page: page.toString(),
+//         },
+//       };
 
-      const response = await axios.request(options);
+//       const response = await axios.request(options);
 
-      setSearchResult(response.data.data);
-      // console.log(JSON.stringify(response.data.data, null, 2));
-      setTotalJobs(response.data.data.length);
-    } catch (error) {
-      setSearchError(error);
-      console.log(error);
-    } finally {
-      setSearchLoader(false);
-    }
-  };
+//       setSearchResult(response.data.data);
+//       // console.log(JSON.stringify(response.data.data, null, 2));
+//       setTotalJobs(response.data.data.length);
+//     } catch (error) {
+//       setSearchError(error);
+//       console.log(error);
+//     } finally {
+//       setSearchLoader(false);
+//     }
+//   };
 
   const handlePagination = (direction) => {
     if (direction === "left" && page > 1) {
