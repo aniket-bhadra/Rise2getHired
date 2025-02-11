@@ -1,12 +1,38 @@
-import { View, Text } from "react-native";
+import { View, Text, ScrollView, StyleSheet } from "react-native";
 import React from "react";
+import AFFIRMATION_GALLERY from "../../../constants/meditationData/affirmation-gallery";
+import GuidedAffirmationsGallery from "../../../components/meditation/GuidedAffirmationsGallery";
 
-const Affirmations = () => {
+const Affirmation = () => {
   return (
-    <View>
-      <Text>Affirmations</Text>
+    <View style={styles.container}>
+      <ScrollView showsVerticalScrollIndicator={false}>
+        <Text style={styles.headerText}>
+          Change your beliefs with affirmation
+        </Text>
+        <View>
+          {AFFIRMATION_GALLERY.map((g) => (
+            <GuidedAffirmationsGallery
+              key={g.title}
+              title={g.title}
+              previews={g.data}
+            />
+          ))}
+        </View>
+      </ScrollView>
     </View>
   );
 };
 
-export default Affirmations;
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
+  headerText: {
+    color: "#e4e7e3",
+    fontSize: 32,
+    fontWeight: "bold",
+  },
+});
+
+export default Affirmation;

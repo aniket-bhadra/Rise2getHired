@@ -21,7 +21,7 @@ const GuidedAffirmationsGallery = ({ title, previews }) => {
           showsHorizontalScrollIndicator={false}
           keyExtractor={(item) => item.id.toString()}
           renderItem={({ item }) => (
-            <Link href={`/affirmations/${item.id}`} asChild>
+            <Link href={`/meditation/DynamicAffirmationScreens/${item.id}`} asChild>
               <Pressable>
                 <View style={styles.imageContainer}>
                   <Image

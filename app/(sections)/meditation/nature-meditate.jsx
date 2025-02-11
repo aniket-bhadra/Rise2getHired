@@ -17,6 +17,7 @@ import { useRouter } from "expo-router";
 import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
 import Entypo from "@expo/vector-icons/Entypo";
 import { FONT } from "../../../constants";
+import Affirmation from "./affirmation";
 
 const NatureMeditate = () => {
   const [activeTab, setActiveTab] = useState("meditation");
@@ -140,9 +141,7 @@ const NatureMeditate = () => {
           </>
         ) : (
           <View style={styles.placeholderContainer}>
-            <Text style={styles.placeholderText}>
-              Affirmation content goes here.
-            </Text>
+            <Affirmation />
           </View>
         )}
       </AppGradient>
@@ -251,7 +250,7 @@ const styles = StyleSheet.create({
   },
   Horizontal_itemTitle: {
     color: "#F3F4F6",
-    fontSize: 21,
+    fontSize: 19,
     fontWeight: "bold",
     textAlign: "center",
     textShadowColor: "rgba(0, 0, 0, 0.5)",
@@ -281,7 +280,7 @@ const styles = StyleSheet.create({
   },
   itemTitle: {
     color: "#F3F4F6",
-    fontSize: 24,
+    fontSize: 26,
     fontWeight: "bold",
     textAlign: "center",
   },
