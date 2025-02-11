@@ -1,6 +1,7 @@
 import { Tabs } from "expo-router";
 import FontAwesome from "@expo/vector-icons/FontAwesome";
 import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
+import FontAwesomeCode from "@expo/vector-icons/FontAwesome";
 
 const RootTabsLayout = () => {
   return (
@@ -25,6 +26,15 @@ const RootTabsLayout = () => {
           tabBarLabel: "Meditation",
           tabBarIcon: ({ color }) => (
             <MaterialCommunityIcons name="meditation" size={24} color={color} />
+          ),
+        }}
+      />
+      <Tabs.Screen
+        name="codeEditor"
+        options={{
+          tabBarLabel: "code",
+          tabBarIcon: ({ color }) => (
+            <FontAwesomeCode name="code" size={24} color={color} />
           ),
         }}
       />
