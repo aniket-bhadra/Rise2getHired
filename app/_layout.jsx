@@ -3,6 +3,7 @@ import { SafeAreaProvider } from "react-native-safe-area-context";
 import { useFonts } from "expo-font";
 import * as SplashScreen from "expo-splash-screen";
 import { useEffect } from "react";
+import TimerProvider from "../context/TimerContext";
 
 SplashScreen.preventAutoHideAsync();
 
@@ -22,10 +23,17 @@ export default function RootLayout() {
 
   return (
     <SafeAreaProvider>
-      <Stack>
-        <Stack.Screen name="(sections)" options={{ headerShown: false }} />
-        <Stack.Screen name="index" options={{ headerShown: false }} />
-      </Stack>
+      <TimerProvider>
+        <Stack>
+          <Stack.Screen name="(sections)" options={{ headerShown: false }} />
+          <Stack.Screen name="index" options={{ headerShown: false }} />
+          <Stack.Screen name="meditate/[id]" options={{ headerShown: false }} />
+          <Stack.Screen
+            name="meditateModal/adjust-meditation-duration"
+            options={{ headerShown: false }}
+          />
+        </Stack>
+      </TimerProvider>
     </SafeAreaProvider>
   );
 }
