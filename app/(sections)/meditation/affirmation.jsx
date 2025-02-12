@@ -1,4 +1,4 @@
-import { View, Text, ScrollView, StyleSheet } from "react-native";
+import { View, Text, FlatList, StyleSheet } from "react-native";
 import React from "react";
 import AFFIRMATION_GALLERY from "../../../constants/meditationData/affirmation-gallery";
 import GuidedAffirmationsGallery from "../../../components/meditation/GuidedAffirmationsGallery";
@@ -6,20 +6,19 @@ import GuidedAffirmationsGallery from "../../../components/meditation/GuidedAffi
 const Affirmation = () => {
   return (
     <View style={styles.container}>
-      <ScrollView showsVerticalScrollIndicator={false}>
-        <Text style={styles.headerText}>
-          Change your beliefs with affirmation
-        </Text>
-        <View>
-          {AFFIRMATION_GALLERY.map((g) => (
-            <GuidedAffirmationsGallery
-              key={g.title}
-              title={g.title}
-              previews={g.data}
-            />
-          ))}
-        </View>
-      </ScrollView>
+      <FlatList
+        ListHeaderComponent={
+          <Text style={styles.headerText}>
+            Boost Your Confidence in Every Job Phase
+          </Text>
+        }
+        data={AFFIRMATION_GALLERY}
+        keyExtractor={(item) => item.title}
+        renderItem={({ item }) => (
+          <GuidedAffirmationsGallery title={item.title} previews={item.data} />
+        )}
+        showsVerticalScrollIndicator={false}
+      />
     </View>
   );
 };
