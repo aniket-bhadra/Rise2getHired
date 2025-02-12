@@ -48,17 +48,17 @@ const styles = StyleSheet.create({
   locationImage: {
     width: 14,
     height: 14,
-    tintColor: COLORS.gray,
+    tintColor: COLORS.secondary,
   },
   locationName: {
     fontSize: SIZES.medium - 2,
-    color: COLORS.gray,
+    color: COLORS.secondary,
     fontFamily: FONT.regular,
     marginLeft: 2,
   },
   postedAt: {
     fontSize: SIZES.medium - 2,
-    color: COLORS.gray, // Slightly faded color
+    color: COLORS.secondary, // Slightly faded color
     fontFamily: FONT.regular,
     textAlign: "center", // Center the text
     marginTop: SIZES.small, // Move to the next line

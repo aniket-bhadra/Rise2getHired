@@ -4,27 +4,27 @@
     "slug": "rise2gethired",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/icon.png",
+    "icon": "./assets/logo.png",
     "scheme": "myapp",
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
     "ios": {
       "supportsTablet": true,
       "splash": {
-        "image": "./assets/adaptive-icon.png",
-        "resizeMode": "cover",
-        "backgroundColor": "#e4e7e3"
+        "image": "./assets/logo.png",
+        "resizeMode": "contain",
+        "backgroundColor": "#a2b8a0"
       }
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/adaptive-icon.png",
-        "backgroundColor": "#e4e7e3"
+        "foregroundImage": "./assets/logo.png",
+        "backgroundColor": "#a2b8a0"
       },
       "splash": {
-        "image": "./assets/icon.png",
-        "resizeMode": "cover",
-        "backgroundColor": "#e4e7e8"
+        "image": "./assets/logo.png",
+        "resizeMode": "contain",
+        "backgroundColor": "#a2b8a0"
       }
     },
     "web": {
@@ -37,10 +37,10 @@
       [
         "expo-splash-screen",
         {
-          "image": "./assets/icon.png",
+          "image": "./assets/logo.png",
           "imageWidth": 1000,
-          "resizeMode": "cover",
-          "backgroundColor": "#e4e7e8"
+          "resizeMode": "contain",
+          "backgroundColor": "#a2b8a0"
         }
       ]
     ]

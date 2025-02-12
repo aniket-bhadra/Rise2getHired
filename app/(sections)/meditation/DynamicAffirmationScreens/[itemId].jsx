@@ -49,9 +49,9 @@ const AffirmationPractice = () => {
         resizeMode="cover"
         style={styles.imageBackground}
       >
-        <AppGradient colors={["rgba(0,0,0,0.3)", "rgba(0,0,0,0.9)"]}>
+        <AppGradient colors={["rgba(0,0,0,0.6)", "rgba(0,0,0,0.9)"]}>
           <Pressable onPress={() => router.back()} style={styles.backButton}>
-            <AntDesign name="leftcircleo" size={35} color="white" />
+            <AntDesign name="leftcircleo" size={35} color="#d18b52" />
           </Pressable>
           <ScrollView
             style={styles.scrollView}

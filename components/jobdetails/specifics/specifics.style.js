@@ -11,7 +11,7 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: SIZES.large,
-    color: COLORS.primary,
+    color: "#116461",
     fontFamily: FONT.bold,
   },
   pointsContainer: {
@@ -27,12 +27,12 @@ const styles = StyleSheet.create({
     width: 6,
     height: 6,
     borderRadius: 6,
-    backgroundColor: COLORS.gray2,
+    backgroundColor: COLORS.primary,
     marginTop: 6,
   },
   pointText: {
     fontSize: SIZES.medium - 2,
-    color: COLORS.gray,
+    color: COLORS.primary,
     fontFamily: FONT.regular,
     marginLeft: SIZES.small,
   },

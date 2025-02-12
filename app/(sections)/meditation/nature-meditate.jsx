@@ -25,7 +25,7 @@ const NatureMeditate = () => {
 
   return (
     <View style={styles.container}>
-      <AppGradient colors={["#161b2e", "#0a4d4a", "#766e67"]}>
+      <AppGradient colors={["#116461", "#a2b8a0", "#116461"]}>
         <View style={styles.header}>
           <View style={styles.tabContainer}>
             <TouchableOpacity
@@ -158,7 +158,7 @@ const styles = StyleSheet.create({
     padding: 8,
     borderRadius: 30,
     borderWidth: 1,
-    borderColor: "rgba(255, 255, 255, 0.2)",
+    borderColor: "#444262",
     alignSelf: "center",
     justifyContent: "center",
     width: "90%",
@@ -212,7 +212,7 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: 18,
-    color: "#f0ae6d",
+    color: "#312651",
     marginBottom: 14,
     fontFamily: FONT.bold,
     letterSpacing: 1,

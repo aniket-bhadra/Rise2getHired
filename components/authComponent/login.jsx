@@ -29,7 +29,7 @@ export default function Login() {
       />
 
       <TouchableOpacity style={styles.button} onPress={handleLogin}>
-        <Text style={styles.buttonText}>Log In</Text>
+        <Text style={styles.buttonText}>LogIn</Text>
       </TouchableOpacity>
     </View>
   );

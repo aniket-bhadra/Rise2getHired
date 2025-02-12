@@ -87,7 +87,7 @@ const Meditate = () => {
   };
 
   const handleAdjustDuration = () => {
-   //  console.log(secondsRemaining);
+    //  console.log(secondsRemaining);
     if (isMeditating) toggleMeditationSessionStatus();
 
     setIsModalVisible(true);
@@ -116,9 +116,9 @@ const Meditate = () => {
         resizeMode="cover"
         style={styles.imageBackground}
       >
-        <AppGradient colors={["transparent", "rgba(0,0,0,0.8)"]}>
+        <AppGradient colors={["transparent", "rgba(0,0,0,0.9)"]}>
           <Pressable onPress={() => router.back()} style={styles.backButton}>
-            <AntDesign name="leftcircleo" size={36} color="white" />
+            <AntDesign name="leftcircleo" size={36} color="#e58e40" />
           </Pressable>
 
           <View style={styles.mainContent}>
@@ -187,16 +187,18 @@ const styles = StyleSheet.create({
   },
   timeContainer: {
     marginHorizontal: "auto",
-    backgroundColor: "#e5e5e5",
+    backgroundColor: "rgba(229, 229, 229, 0.8)",
     borderRadius: 9999,
     width: 176,
     height: 176,
     justifyContent: "center",
     alignItems: "center",
+    borderWidth: 5,
+    borderColor: "#a2b8a0",
   },
   timeText: {
     fontSize: 32,
-    color: "#1e3a8a",
+    color: "#312651",
     fontFamily: "monospace",
   },
   buttonContainer: {

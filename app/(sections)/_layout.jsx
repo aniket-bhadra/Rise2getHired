@@ -1,15 +1,20 @@
 import { Tabs } from "expo-router";
+import { useColorScheme, View, Image } from "react-native";
 import FontAwesome from "@expo/vector-icons/FontAwesome";
 import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
 import FontAwesomeCode from "@expo/vector-icons/FontAwesome";
-import { Image, View } from "react-native";
 
 const RootTabsLayout = () => {
+  const theme = useColorScheme(); // Get current theme ('light' or 'dark')
+
   return (
     <Tabs
       screenOptions={{
         headerShown: false,
         tabBarActiveTintColor: "#116461",
+        tabBarStyle: {
+          backgroundColor: theme === "dark" ? "#000" : "#FFF", // Dynamic background
+        },
       }}
     >
       <Tabs.Screen
@@ -46,11 +51,11 @@ const RootTabsLayout = () => {
           tabBarIcon: ({ color, size, focused }) => (
             <View
               style={{
-                width: size + 6, // Slightly larger container for border effect
+                width: size + 6,
                 height: size + 6,
                 borderRadius: (size + 6) / 2,
-                borderWidth: focused ? 2 : 0, // Show border when active
-                borderColor: focused ? "#116461" : "transparent", // Active border color:color,
+                borderWidth: focused ? 2 : 0,
+                borderColor: focused ? "#116461" : "transparent",
                 justifyContent: "center",
                 alignItems: "center",
               }}
@@ -62,14 +67,13 @@ const RootTabsLayout = () => {
                 style={{
                   width: size,
                   height: size,
-                  borderRadius: size / 2, // Makes it round
+                  borderRadius: size / 2,
                 }}
               />
             </View>
           ),
         }}
       />
-      ;
     </Tabs>
   );
 };

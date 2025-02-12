@@ -139,9 +139,9 @@ const styles = StyleSheet.create({
   codeMirror: { height: 200 },
 
   button: {
-    backgroundColor: "#f0ae6d",
+    backgroundColor: "#e58e40",
     padding: 12,
-    borderRadius: 5,
+    borderRadius: 12,
     alignItems: "center",
     marginTop: 10,
   },

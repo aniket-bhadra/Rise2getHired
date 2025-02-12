@@ -13,6 +13,9 @@ import { Text } from "react-native";
 import axios from "axios";
 import keys from "../../../../secure";
 
+// ! remove this
+import data from "../../../../mockSearchData.json";
+
 import { ScreenHeaderBtn, NearbyJobCard } from "../../../../components";
 import { COLORS, icons, SIZES } from "../../../../constants";
 import styles from "../../../../styles/search";
@@ -59,7 +62,10 @@ const JobSearch = () => {
   //   };
 
   //! remove this--
-  const handleSearch = () => {};
+  const handleSearch = () => {
+    setSearchResult(data);
+    setTotalJobs(data.length);
+  };
 
   const handlePagination = (direction) => {
     if (direction === "left" && page > 1) {
@@ -76,7 +82,7 @@ const JobSearch = () => {
   }, []);
 
   return (
-    <SafeAreaView style={{ flex: 1, backgroundColor: COLORS.lightWhite }}>
+    <SafeAreaView style={{ flex: 1, backgroundColor: "#a2b8a0" }}>
       <Stack.Screen
         options={{
           headerStyle: { backgroundColor: COLORS.lightWhite },
@@ -97,7 +103,9 @@ const JobSearch = () => {
         renderItem={({ item }) => (
           <NearbyJobCard
             job={item}
-            handleNavigate={() => router.push(`/job-details/${item.job_id}`)}
+            handleNavigate={() =>
+              router.push(`jobs/job-details/${item.job_id}`)
+            }
           />
         )}
         keyExtractor={(item) => item.job_id}

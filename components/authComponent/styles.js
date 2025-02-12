@@ -27,9 +27,9 @@ export default StyleSheet.create({
   },
 
   button: {
-    backgroundColor: "#f0ae6d",
+    backgroundColor: "#e58e40",
     padding: 12,
-    borderRadius: 10,
+    borderRadius: 15,
     alignItems: "center",
   },
   buttonText: {

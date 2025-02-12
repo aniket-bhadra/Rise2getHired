@@ -9,7 +9,7 @@ const styles = StyleSheet.create({
     left: 0,
     right: 0,
     padding: SIZES.small,
-    backgroundColor: "#FFF",
+    backgroundColor: "rgba(255, 255, 229, 0.5)",
     justifyContent: "space-between",
     alignItems: "center",
     flexDirection: "row",
@@ -17,8 +17,8 @@ const styles = StyleSheet.create({
   likeBtn: {
     width: 55,
     height: 55,
-    borderWidth: 1,
-    borderColor: "#F37453",
+    borderWidth: 2,
+    borderColor: "#e58e40",
     borderRadius: SIZES.medium,
     justifyContent: "center",
     alignItems: "center",
@@ -26,11 +26,11 @@ const styles = StyleSheet.create({
   likeBtnImage: {
     width: "40%",
     height: "40%",
-    tintColor: "#F37453",
+    tintColor: "#e58e40",
   },
   applyBtn: {
     flex: 1,
-    backgroundColor: "#FE7654",
+    backgroundColor: "#e58e40",
     height: "100%",
     justifyContent: "center",
     alignItems: "center",

@@ -10,25 +10,28 @@ const CustomButton = ({
   return (
     <TouchableOpacity
       activeOpacity={0.7}
-      style={[styles.container, containerStyles]}
+      style={[styles.button, containerStyles]}
       onPress={onPress}
     >
-      <Text style={[styles.text, textStyles]}>{title}</Text>
+      <Text style={[styles.buttonText, textStyles]}>{title}</Text>
     </TouchableOpacity>
   );
 };
 
 const styles = StyleSheet.create({
-  container: {
-    backgroundColor: "white",
-    borderRadius: 12,
-    minHeight: 62,
+  button: {
+    backgroundColor: "#e58e40",
+    padding: 12,
+    borderRadius: 15,
+    alignItems: "center",
+    minHeight: 52,
     justifyContent: "center",
     alignItems: "center",
   },
-  text: {
-    fontWeight: "600",
-    fontSize: 18,
+  buttonText: {
+    color: "#fff",
+    fontWeight: "bold",
+    fontSize: 16,
   },
 });
 

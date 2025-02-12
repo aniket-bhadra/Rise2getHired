@@ -15,7 +15,7 @@ const styles = StyleSheet.create({
     marginTop: 2,
     fontFamily: FONT.medium,
     fontSize: SIZES.small,
-    color: COLORS.primary,
+    color: COLORS.secondary,
   },
   loaderContainer: {
     marginTop: SIZES.medium,
@@ -33,7 +33,7 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     justifyContent: "center",
     alignItems: "center",
-    backgroundColor: COLORS.tertiary,
+    backgroundColor: "#e58e40",
   },
   paginationImage: {
     width: "60%",
@@ -43,10 +43,12 @@ const styles = StyleSheet.create({
   paginationTextBox: {
     width: 30,
     height: 30,
-    borderRadius: 2,
+    borderRadius: 10,
     justifyContent: "center",
     alignItems: "center",
     backgroundColor: COLORS.white,
+    borderWidth:2,
+    borderColor: "#116461"
   },
   paginationText: {
     fontFamily: FONT.bold,
@@ -56,7 +58,7 @@ const styles = StyleSheet.create({
   noJobsText: {
     fontFamily: FONT.bold,
     fontSize: SIZES.medium,
-    color: COLORS.tertiary,
+    color: "#e58e40",
     justifyContent: "center",
     alignItems: "center",
   },

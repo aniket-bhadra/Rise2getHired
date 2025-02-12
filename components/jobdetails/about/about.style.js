@@ -11,7 +11,7 @@ const styles = StyleSheet.create({
   },
   headText: {
     fontSize: SIZES.large,
-    color: COLORS.primary,
+    color: "#116461",
     fontFamily: FONT.bold,
   },
   contentBox: {
@@ -19,7 +19,7 @@ const styles = StyleSheet.create({
   },
   contextText: {
     fontSize: SIZES.medium - 2,
-    color: COLORS.gray,
+    color: COLORS.primary,
     fontFamily: FONT.regular,
     marginVertical: SIZES.small / 1.25,
   },

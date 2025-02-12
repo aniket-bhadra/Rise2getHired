@@ -12,7 +12,11 @@ export default function loginOrSignup() {
   return (
     <View style={styles.container}>
       <Image source={require("../assets/logo.png")} style={styles.logo} />
-      <Text style={styles.logoText}>Rise2GetHired</Text>
+      <Text style={styles.logoText}>
+        Rise2Get
+        <Text style={{ color: "#d18b52" }}>H</Text>
+        ired
+      </Text>
 
       {isLogin ? <Login /> : <Signup />}
 

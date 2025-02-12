@@ -21,12 +21,12 @@ const AdjustMeditationDuration = ({ isVisible, onClose }) => {
       backdropOpacity={0}
     >
       <View style={styles.container}>
-        <AppGradient colors={["transparent", "#0a4d4a", "#766e67"]}>
+        <AppGradient colors={["transparent", "#a2b8a0", "#116461"]}>
           <View style={styles.closeButton}>
             <AntDesign
               name="closecircleo"
               size={28}
-              color="white"
+              color="#e58e40"
               onPress={onClose}
             />
           </View>
@@ -74,7 +74,7 @@ const styles = StyleSheet.create({
     textAlign: "center",
     fontWeight: "bold",
     fontSize: 20,
-    color: "white",
+    color: "#116461",
     marginBottom: 24,
   },
   buttonContainer: {
