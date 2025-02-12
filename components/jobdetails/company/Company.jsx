@@ -4,7 +4,13 @@ import { View, Text, Image } from "react-native";
 import styles from "./company.style";
 
 import { icons } from "../../../constants";
-const Company = ({ companyLogo, jobTitle, companyName, location }) => {
+const Company = ({
+  companyLogo,
+  jobTitle,
+  companyName,
+  location,
+  postedAt,
+}) => {
   return (
     <View style={styles.container}>
       <View style={styles.logoBox}>
@@ -32,6 +38,7 @@ const Company = ({ companyLogo, jobTitle, companyName, location }) => {
         </View>
         <Text style={styles.locationName}>{location}</Text>
       </View>
+      <Text style={styles.postedAt}>Posted on {postedAt}</Text>
     </View>
   );
 };

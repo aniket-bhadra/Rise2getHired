@@ -27,7 +27,7 @@ import useFetch from "../../../../hook/useFetch";
 //! remove this
 import data from "../../../../mockJobDetails.json";
 
-const tabs = ["About", "Qualifications", "Responsibilities"];
+const tabs = ["About", "Qualifications", "Responsibilities", "Benefits"];
 const JobDetails = () => {
   const { id } = useLocalSearchParams();
   const router = useRouter();
@@ -64,7 +64,13 @@ const JobDetails = () => {
             points={data[0].job_highlights?.Responsibilities ?? ["N/A"]}
           />
         );
-
+      case "Benefits":
+        return (
+          <Specifics
+            title="Benefits"
+            points={data[0].job_highlights?.Benefits ?? ["N/A"]}
+          />
+        );
       default:
         break;
     }
@@ -113,6 +119,7 @@ const JobDetails = () => {
                 jobTitle={data[0].job_title}
                 companyName={data[0].employer_name}
                 location={data[0].job_country}
+                postedAt={data[0].job_posted_at}
               />
               <JobTabs
                 tabs={tabs}

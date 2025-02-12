@@ -56,6 +56,13 @@ const styles = StyleSheet.create({
     fontFamily: FONT.regular,
     marginLeft: 2,
   },
+  postedAt: {
+    fontSize: SIZES.medium - 2,
+    color: COLORS.gray, // Slightly faded color
+    fontFamily: FONT.regular,
+    textAlign: "center", // Center the text
+    marginTop: SIZES.small, // Move to the next line
+  },
 });
 
 export default styles;
