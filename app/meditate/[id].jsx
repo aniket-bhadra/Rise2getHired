@@ -51,6 +51,29 @@ const Meditate = () => {
   }, [secondsRemaining, isMeditating, audioSound]);
 
   useEffect(() => {
+    if (!audioSound || !isMeditating) return;
+
+    const onPlaybackStatusUpdate = async (status) => {
+      if (status.didJustFinish && secondsRemaining > 0) {
+        await audioSound.replayAsync();
+      }
+    };
+
+    audioSound.setOnPlaybackStatusUpdate(onPlaybackStatusUpdate);
+
+    //Even though we're manually checking the playback status, this cleanup step makes sure no extra listeners stay behind.
+    // Without it, the code might still work most of the time.
+    // But there's a small chance of issues like:
+    // Multiple event listeners stacking up.
+    // Unexpected behavior (e.g., audio restarting multiple times).
+    // Potential memory leaks when the component unmounts.
+    // So, while removing it won’t always break the code immediately, it's best practice to include it to eliminate any small chances of bugs.
+    return () => {
+      audioSound.setOnPlaybackStatusUpdate(null);
+    };
+  }, [audioSound, isMeditating, secondsRemaining]);
+
+  useEffect(() => {
     DOM_UNMOUNT = 0;
     return () => {
       DOM_UNMOUNT++;
