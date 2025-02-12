@@ -114,7 +114,7 @@ const NatureMeditate = () => {
             <Text style={styles.title}>Browse Sounds – Choose & Relax</Text>
             <FlatList
               style={styles.list}
-              data={MEDITATION_DATA.slice(5, 13)}
+              data={MEDITATION_DATA.slice(5, 15)}
               keyExtractor={(item) => item.id.toString()}
               showsVerticalScrollIndicator={false}
               ListFooterComponent={<View style={{ height: 80 }} />}
