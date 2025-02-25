@@ -15,17 +15,20 @@ const Nearbyjobs = () => {
   const router = useRouter();
   // !  uncomment
   // const { isLoading, error, data } = useFetch("search", {
-  //   query: "React developer",
+  //   query: "Remote jobs",
   //   num_pages: 1,
   // });
   const isLoading = false;
   const error = null;
 
+  const showAllHandler = () => {
+    router.push("/jobs/search/Remote Jobs");
+  };
   return (
     <View style={styles.container}>
       <View style={styles.header}>
         <Text style={styles.headerTitle}>Remote Jobs</Text>
-        <TouchableOpacity>
+        <TouchableOpacity onPress={showAllHandler}>
           <Text style={styles.headerBtn}>Show All</Text>
         </TouchableOpacity>
       </View>

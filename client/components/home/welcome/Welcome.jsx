@@ -18,6 +18,8 @@ const jobTypes = ["Full-time", "Part-time", "Contractor"];
 const Welcome = ({ searchTerm, setSearchTerm, handleClick }) => {
   const router = useRouter();
   const [activeJobType, setActiveJobType] = useState("Full-time");
+  const [localSearchTerm, setLocalSearchTerm] = useState("");
+
   return (
     <View>
       <View style={styles.container}>
@@ -28,13 +30,20 @@ const Welcome = ({ searchTerm, setSearchTerm, handleClick }) => {
         <View style={styles.searchWrapper}>
           <TextInput
             style={styles.searchInput}
-            value={searchTerm}
-            onChangeText={(text) => setSearchTerm(text)}
-            placeholder="Dream job? Let’s find it!"
+            value={localSearchTerm}
+            onChangeText={(text) => setLocalSearchTerm(text)}
+            placeholder="Dream job? Let's find it!"
           />
         </View>
 
-        <TouchableOpacity style={styles.searchBtn} onPress={handleClick}>
+        <TouchableOpacity
+          style={styles.searchBtn}
+          onPress={() => {
+            if (localSearchTerm) {
+              router.push(`/jobs/search/${localSearchTerm}`);
+            }
+          }}
+        >
           <Image
             source={icons.search}
             style={styles.searchBtnImage}
