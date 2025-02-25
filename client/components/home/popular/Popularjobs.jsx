@@ -23,7 +23,7 @@ const Popularjobs = () => {
 
   // !  uncomment
   // const { isLoading, error, data } = useFetch("search", {
-  //   query: "React developer",
+  //   query: "Popular jobs",
   //   num_pages: 1,
   // });
   const isLoading = false;
@@ -35,11 +35,15 @@ const Popularjobs = () => {
     setSelectedJob(item.job_id);
   };
 
+  const showAllHandler = () => {
+    router.push("/jobs/search/Popular Jobs");
+  };
+
   return (
     <View style={styles.container}>
       <View style={styles.header}>
         <Text style={styles.headerTitle}>Popular Jobs</Text>
-        <TouchableOpacity>
+        <TouchableOpacity onPress={showAllHandler}>
           <Text style={styles.headerBtn}>Show All</Text>
         </TouchableOpacity>
       </View>
