@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import {
   View,
   Text,
@@ -8,8 +8,9 @@ import {
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { Stack, useRouter, useLocalSearchParams } from "expo-router";
-// import { useSearchParams } from "expo-router/build/hooks";
-
+import axios from "axios";
+import { apiBaseUrl } from "../../../../config/config";
+import { TimerContext } from "../../../../context/TimerContext";
 import {
   Company,
   JobAbout,
@@ -18,7 +19,6 @@ import {
   ScreenHeaderBtn,
   Specifics,
 } from "../../../../components";
-
 import { COLORS, icons, SIZES } from "../../../../constants";
 
 //! uncomment this
@@ -28,22 +28,44 @@ import useFetch from "../../../../hook/useFetch";
 import data from "../../../../mockJobDetails.json";
 
 const tabs = ["About", "Qualifications", "Responsibilities", "Benefits"];
+
 const JobDetails = () => {
   const { id } = useLocalSearchParams();
   const router = useRouter();
+  const { user, setUser } = useContext(TimerContext);
   //! uncomment this
-  // const { data, isLoading, error, refetch } = useFetch("job-details", {
-  //   job_id: id,
-  // });
+  // const { data, isLoading, error } = useFetch("job-details", { job_id: id });
   const isLoading = false;
   const error = null;
-  const [refreshing, setRefreshing] = useState(false);
   const [activeTab, setActiveTab] = useState(tabs[0]);
-  const onRefresh = useCallback(() => {
-    setRefreshing(true);
-    refetch();
-    setRefreshing(false);
-  }, []);
+
+  // Update last browsed job when page loads
+  useEffect(() => {
+    const updateLastBrowsedJob = async () => {
+      if (!user?._id || !data[0]) return;
+
+      try {
+        const response = await axios.post(
+          `${apiBaseUrl}/api/user/update-last-browsed`,
+          {
+            userId: user._id,
+            job: {
+              job_id: data[0]?.job_id,
+              job_title: data[0]?.job_title,
+              employer_name: data[0]?.employer_name,
+            },
+            updateCount: 1, // Increment count
+          }
+        );
+        setUser(response.data.user);
+      } catch (error) {
+        console.log("Error updating last browsed job:", error);
+      }
+    };
+
+    updateLastBrowsedJob();
+  }, [data]);
+
   const displayTabContent = () => {
     switch (activeTab) {
       case "Qualifications":
@@ -75,6 +97,7 @@ const JobDetails = () => {
         break;
     }
   };
+
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: "#a2b8a0" }}>
       <Stack.Screen
@@ -82,63 +105,51 @@ const JobDetails = () => {
           headerStyle: { backgroundColor: COLORS.lightWhite },
           headerShadowVisible: false,
           headerBackVisible: false,
-          headerLeft: () => {
-            return (
-              <ScreenHeaderBtn
-                iconUrl={icons.left}
-                dimensions="60%"
-                handlePress={() => {
-                  router.back();
-                }}
-              />
-            );
-          },
-          headerRight: () => {
-            return <ScreenHeaderBtn iconUrl={icons.share} dimensions="60%" />;
-          },
+          headerLeft: () => (
+            <ScreenHeaderBtn
+              iconUrl={icons.left}
+              dimensions="60%"
+              handlePress={() => router.back()}
+            />
+          ),
+          headerRight: () => (
+            <ScreenHeaderBtn iconUrl={icons.share} dimensions="60%" />
+          ),
           headerTitle: "",
         }}
       />
-      <>
-        <ScrollView
-          showsVerticalScrollIndicator={false}
-          refreshControl={
-            <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
-          }
-        >
-          {isLoading ? (
-            <ActivityIndicator size="large" color={COLORS.primary} />
-          ) : error ? (
-            <Text>Something Went Wrong</Text>
-          ) : data.length === 0 ? (
-            <Text>No Data Available</Text>
-          ) : (
-            <View style={{ padding: SIZES.medium, paddingBottom: 100 }}>
-              <Company
-                companyLogo={data[0].employer_logo}
-                jobTitle={data[0].job_title}
-                companyName={data[0].employer_name}
-                location={data[0].job_country}
-                postedAt={data[0].job_posted_at}
-              />
-              <JobTabs
-                tabs={tabs}
-                activeTab={activeTab}
-                setActiveTab={setActiveTab}
-              />
-              {displayTabContent()}
-            </View>
-          )}
-        </ScrollView>
+      <ScrollView showsVerticalScrollIndicator={false}>
+        {isLoading ? (
+          <ActivityIndicator size="large" color={COLORS.primary} />
+        ) : error ? (
+          <Text>Something Went Wrong</Text>
+        ) : data.length === 0 ? (
+          <Text>No Data Available</Text>
+        ) : (
+          <View style={{ padding: SIZES.medium, paddingBottom: 100 }}>
+            <Company
+              companyLogo={data[0].employer_logo}
+              jobTitle={data[0].job_title}
+              companyName={data[0].employer_name}
+              location={data[0].job_country}
+              postedAt={data[0].job_posted_at}
+            />
+            <JobTabs
+              tabs={tabs}
+              activeTab={activeTab}
+              setActiveTab={setActiveTab}
+            />
+            {displayTabContent()}
+          </View>
+        )}
+      </ScrollView>
 
-        <JobFooter
-          url={
-            data[0]?.job_google_link ??
-            "https://careers.google.com/jobs/results"
-          }
-          job={data[0]}
-        />
-      </>
+      <JobFooter
+        url={
+          data[0]?.job_google_link ?? "https://careers.google.com/jobs/results"
+        }
+        job={data[0]}
+      />
     </SafeAreaView>
   );
 };

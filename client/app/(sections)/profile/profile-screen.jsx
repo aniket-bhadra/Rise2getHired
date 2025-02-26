@@ -203,7 +203,6 @@ const Profile = () => {
         <View style={profileStyles.activitySection}>
           <Text style={profileStyles.sectionTitle}>Recent Activity</Text>
 
-          {/* Last Browsed Job */}
           <View style={profileStyles.activityItem}>
             <View style={profileStyles.activityIconContainer}>
               <Ionicons name="time" size={20} color="#fff" />
@@ -211,19 +210,17 @@ const Profile = () => {
 
             {hasLastBrowsedJob ? (
               <View style={profileStyles.activityContent}>
-                <Text style={profileStyles.activityTitle}>
-                  {user.lastBrowsedJob.job_title &&
-                    user.lastBrowsedJob.job_title.slice(0, 24)}
-                </Text>
+                <Text style={profileStyles.activityTitle}>Last Viewed Job</Text>
                 <Text style={profileStyles.activitySubtitle}>
-                  {user.lastBrowsedJob.employer_name}
+                  {user.lastBrowsedJob.job_title &&
+                    user.lastBrowsedJob.job_title.slice(0, 25) + ".."}
+                  {user.lastBrowsedJob.employer_name &&
+                    ` at ${user.lastBrowsedJob.employer_name}`}
                 </Text>
               </View>
             ) : (
               <View style={profileStyles.activityContent}>
-                <Text style={profileStyles.activityTitle}>
-                  Recent Job Views
-                </Text>
+                <Text style={profileStyles.activityTitle}>Last Viewed Job</Text>
                 <Text style={profileStyles.activitySubtitle}>
                   No Jobs Viewed
                 </Text>
