@@ -20,6 +20,12 @@ const userSchema = new mongoose.Schema(
         employer_name: { type: String },
       },
     ],
+    lastBrowsedJob: {
+      job_id: { type: String, default: null },
+      job_title: { type: String, default: null },
+      employer_name: { type: String, default: null },
+    },
+    noOfJobsBrowsed: { type: Number, default: 0 },
     savedAffirmations: [
       {
         id: { type: Number },
