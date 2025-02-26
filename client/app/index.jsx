@@ -4,13 +4,14 @@ import Signup from "../components/authComponent/signup";
 import Login from "../components/authComponent/login";
 import styles from "../components/authComponent/styles";
 import { useRouter } from "expo-router";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 export default function loginOrSignup() {
   const [isLogin, setIsLogin] = useState(false);
   const router = useRouter();
 
   return (
-    <View style={styles.container}>
+    <SafeAreaView style={styles.container}>
       <Image source={require("../assets/logo.png")} style={styles.logo} />
       <Text style={styles.logoText}>
         Rise2Get
@@ -27,6 +28,6 @@ export default function loginOrSignup() {
             : "Already have an account? Log In"}
         </Text>
       </TouchableOpacity>
-    </View>
+    </SafeAreaView>
   );
 }
