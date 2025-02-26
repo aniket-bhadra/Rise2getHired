@@ -14,6 +14,12 @@ import styles from "./styles";
 import { useRouter } from "expo-router";
 import avatarStyles from "./avatarStyles";
 import avatars from "../../constants/avatars";
+import { apiBaseUrl } from "../../config/config";
+
+import axios from "axios";
+import { Alert } from "react-native";
+import { useContext } from "react";
+import { TimerContext } from "../../context/TimerContext";
 
 export default function Signup() {
   const [name, setName] = useState("");
@@ -21,10 +27,29 @@ export default function Signup() {
   const [password, setPassword] = useState("");
   const [selectedAvatar, setSelectedAvatar] = useState(null);
   const [modalVisible, setModalVisible] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
+  const { setUser } = useContext(TimerContext);
 
-  const handleSignup = () => {
-    router.push("/jobs/jobs-home");
+  const handleSignup = async () => {
+    setIsLoading(true);
+    try {
+      const response = await axios.post(`${apiBaseUrl}/api/user/`, {
+        name,
+        email,
+        password,
+        pic: selectedAvatar.url,
+      });
+      setUser(response.data);
+      router.push("/jobs/jobs-home");
+    } catch (error) {
+      Alert.alert(
+        "Signup Failed",
+        error.response?.data?.message || error.message
+      );
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   const handleSelectAvatar = (avatar) => {
