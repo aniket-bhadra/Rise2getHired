@@ -53,3 +53,17 @@ export const updateLastBrowsedJob = async (req, res) => {
     res.status(500).json({ error: error.message });
   }
 };
+
+export const isJobSaved = async (req, res) => {
+  const { userId, jobId } = req.body;
+
+  try {
+    const user = await User.findById(userId);
+    if (!user) return res.status(404).json({ error: "User not found" });
+
+    const jobExists = user.savedJobs.some((job) => job.job_id === jobId);
+    res.json({ isSaved: jobExists });
+  } catch (error) {
+    res.status(500).json({ error: "Something went wrong" });
+  }
+};
