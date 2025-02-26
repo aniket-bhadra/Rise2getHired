@@ -60,6 +60,8 @@ export const loginUser = async (req, res) => {
         pic: user.pic,
         savedJobs: user.savedJobs,
         savedAffirmations: user.savedAffirmations,
+        lastBrowsedJob: user.lastBrowsedJob,
+        noOfJobsBrowsed: user.noOfJobsBrowsed,
         token: generateToken(user._id),
       });
     } else {

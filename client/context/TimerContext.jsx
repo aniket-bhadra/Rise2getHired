@@ -7,9 +7,10 @@ export const TimerContext = createContext({
 
 const TimerProvider = ({ children }) => {
   const [duration, setDuration] = useState(10);
-  // const [count, setCount] = useState(5);
+  const [user, setUser] = useState();
+
   return (
-    <TimerContext.Provider value={{ duration, setDuration }}>
+    <TimerContext.Provider value={{ duration, setDuration, user, setUser }}>
       {children}
     </TimerContext.Provider>
   );
