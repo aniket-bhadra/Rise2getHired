@@ -199,7 +199,7 @@ const Profile = () => {
           )}
         </View>
 
-        {/* Activity Section - FIXED TOP MARGIN */}
+        {/* Activity Section  */}
         <View style={profileStyles.activitySection}>
           <Text style={profileStyles.sectionTitle}>Recent Activity</Text>
 
@@ -241,7 +241,7 @@ const Profile = () => {
 
             {lastSavedJob ? (
               <View style={profileStyles.activityContent}>
-                <Text style={profileStyles.activityTitle}>Saved a new job</Text>
+                <Text style={profileStyles.activityTitle}>Latest Saved Job</Text>
                 <Text style={profileStyles.activitySubtitle}>
                   {lastSavedJob.job_title} at {lastSavedJob.employer_name}
                 </Text>

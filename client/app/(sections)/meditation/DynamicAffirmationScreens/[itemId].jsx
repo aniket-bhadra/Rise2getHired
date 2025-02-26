@@ -5,16 +5,23 @@ import {
   Pressable,
   ScrollView,
   StyleSheet,
+  Alert,
 } from "react-native";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import { useLocalSearchParams, router } from "expo-router";
 import AFFIRMATION_GALLERY from "../../../../constants/meditationData/affirmation-gallery";
 import AppGradient from "../../../../components/meditation/AppGradient";
 import AntDesign from "@expo/vector-icons/AntDesign";
+import MaterialIcons from "@expo/vector-icons/MaterialIcons"; // New Save Icon
 import { SafeAreaView } from "react-native-safe-area-context";
+import Entypo from "@expo/vector-icons/Entypo";
+import axios from "axios";
+import { apiBaseUrl } from "../../../../config/config";
+import { TimerContext } from "../../../../context/TimerContext";
 
 const AffirmationPractice = () => {
   const { itemId } = useLocalSearchParams();
+  const { user, setUser } = useContext(TimerContext);
   const [affirmation, setAffirmation] = useState();
   const [sentences, setSentences] = useState([]);
 
@@ -42,6 +49,27 @@ const AffirmationPractice = () => {
     }
   }, [affirmation]);
 
+  const saveAffirmation = async () => {
+    if (!user?._id || !affirmation) return;
+
+    try {
+      const response = await axios.post(
+        `${apiBaseUrl}/api/user/save-affirmation`,
+        {
+          userId: user._id,
+          affirmation: {
+            id: affirmation.id,
+            text: affirmation.text,
+          },
+        }
+      );
+      setUser(response.data.user);
+      Alert.alert("Success", "Affirmation saved successfully!");
+    } catch (error) {
+      Alert.alert("Error", "Failed to save affirmation");
+    }
+  };
+
   return (
     <SafeAreaView style={styles.container}>
       <ImageBackground
@@ -50,9 +78,11 @@ const AffirmationPractice = () => {
         style={styles.imageBackground}
       >
         <AppGradient colors={["rgba(0,0,0,0.6)", "rgba(0,0,0,0.9)"]}>
+          {/* Back Button */}
           <Pressable onPress={() => router.back()} style={styles.backButton}>
             <AntDesign name="leftcircleo" size={35} color="#d18b52" />
           </Pressable>
+
           <ScrollView
             style={styles.scrollView}
             showsVerticalScrollIndicator={false}
@@ -67,6 +97,11 @@ const AffirmationPractice = () => {
               </View>
             </View>
           </ScrollView>
+
+          {/* Save Button (Updated Icon) */}
+          <Pressable onPress={saveAffirmation} style={styles.saveButton}>
+            <Entypo name="bookmarks" size={35} color="#d18b52" />
+          </Pressable>
         </AppGradient>
       </ImageBackground>
     </SafeAreaView>
@@ -79,7 +114,7 @@ const styles = StyleSheet.create({
   },
   imageBackground: {
     flex: 1,
-    opacity: 0.8
+    opacity: 0.8,
   },
   backButton: {
     position: "absolute",
@@ -104,6 +139,12 @@ const styles = StyleSheet.create({
     marginBottom: 12,
     fontWeight: "bold",
     textAlign: "center",
+  },
+  saveButton: {
+    position: "absolute",
+    bottom: 20,
+    right: 20,
+    zIndex: 10,
   },
 });
 
