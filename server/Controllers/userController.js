@@ -31,6 +31,10 @@ export const registerUser = async (req, res) => {
       name: user.name,
       email: user.email,
       pic: user.pic,
+      savedJobs: user.savedJobs,
+      savedAffirmations: user.savedAffirmations,
+      lastBrowsedJob: user.lastBrowsedJob,
+      noOfJobsBrowsed: user.noOfJobsBrowsed,
       token: generateToken(user._id),
     });
   } catch (error) {

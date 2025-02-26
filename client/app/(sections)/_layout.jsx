@@ -3,10 +3,12 @@ import { useColorScheme, View, Image } from "react-native";
 import FontAwesome from "@expo/vector-icons/FontAwesome";
 import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
 import FontAwesomeCode from "@expo/vector-icons/FontAwesome";
+import { TimerContext } from "../../context/TimerContext";
+import { useContext } from "react";
 
 const RootTabsLayout = () => {
   const theme = useColorScheme(); // Get current theme ('light' or 'dark')
-
+  const { user } = useContext(TimerContext);
   return (
     <Tabs
       screenOptions={{
@@ -62,7 +64,7 @@ const RootTabsLayout = () => {
             >
               <Image
                 source={{
-                  uri: "https://github.com/aniket-bhadra/E-Commerce-Project-Data/blob/main/AI-generated%20Product%20images/male/male%20kurtas/red1.jpg?raw=true",
+                  uri: user?.pic,
                 }}
                 style={{
                   width: size,

@@ -14,16 +14,18 @@ import styles from "./welcome.style";
 import { useRouter } from "expo-router";
 
 const jobTypes = ["Full-time", "Part-time", "Contractor"];
-
+import { TimerContext } from "../../../context/TimerContext";
+import { useContext } from "react";
 const Welcome = ({ searchTerm, setSearchTerm, handleClick }) => {
   const router = useRouter();
   const [activeJobType, setActiveJobType] = useState("Full-time");
   const [localSearchTerm, setLocalSearchTerm] = useState("");
+  const { user } = useContext(TimerContext);
 
   return (
     <View>
       <View style={styles.container}>
-        <Text style={styles.userName}>Hello Riser</Text>
+        <Text style={styles.userName}>Hello {user?.name}</Text>
         <Text style={styles.welcomeMessage}>Find Your Perfect Job</Text>
       </View>
       <View style={styles.searchContainer}>
