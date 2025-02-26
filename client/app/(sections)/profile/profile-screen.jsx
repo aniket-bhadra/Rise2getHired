@@ -166,8 +166,13 @@ const Profile = () => {
                 keyExtractor={(item) => item.job_id}
                 scrollEnabled={false}
               />
-              <TouchableOpacity style={profileStyles.seeMoreButton}>
-                <Text style={profileStyles.seeMoreText}>See More</Text>
+              <TouchableOpacity
+                style={profileStyles.seeMoreButton}
+                onPress={() => {
+                  router.push("/jobs/search/All Jobs");
+                }}
+              >
+                <Text style={profileStyles.seeMoreText}>See All Jobs</Text>
               </TouchableOpacity>
             </View>
           )}
@@ -214,8 +219,11 @@ const Profile = () => {
                 <Text style={profileStyles.activitySubtitle}>
                   {user.lastBrowsedJob.job_title &&
                     user.lastBrowsedJob.job_title.slice(0, 25) + ".."}
-                  {user.lastBrowsedJob.employer_name &&
-                    ` at ${user.lastBrowsedJob.employer_name}`}
+                  {user.lastBrowsedJob.employer_name && (
+                    <Text style={profileStyles.employerName}>
+                      {` at ${user.lastBrowsedJob.employer_name}`}
+                    </Text>
+                  )}
                 </Text>
               </View>
             ) : (
@@ -241,9 +249,14 @@ const Profile = () => {
 
             {lastSavedJob ? (
               <View style={profileStyles.activityContent}>
-                <Text style={profileStyles.activityTitle}>Latest Saved Job</Text>
+                <Text style={profileStyles.activityTitle}>
+                  Latest Saved Job
+                </Text>
                 <Text style={profileStyles.activitySubtitle}>
-                  {lastSavedJob.job_title} at {lastSavedJob.employer_name}
+                  {lastSavedJob.job_title}
+                  <Text style={profileStyles.employerName}>
+                    {` at ${lastSavedJob.employer_name}`}
+                  </Text>
                 </Text>
               </View>
             ) : (
@@ -333,7 +346,7 @@ const profileStyles = StyleSheet.create({
   },
   userEmail: {
     fontSize: 14,
-    color: "#555",
+    color: "#312651",
     marginBottom: 16,
   },
   editProfileButton: {
@@ -364,7 +377,7 @@ const profileStyles = StyleSheet.create({
   statValue: {
     fontSize: 20,
     fontWeight: "bold",
-    color: "#116461",
+    color: "#312651", // Changed to #312651 as requested
     marginBottom: 4,
   },
   statLabel: {
@@ -378,7 +391,7 @@ const profileStyles = StyleSheet.create({
     alignSelf: "center",
   },
   cardsSection: {
-    marginBottom: 10, // Reduced margin from 20 to 10
+    marginBottom: 10,
   },
   card: {
     backgroundColor: "#fff",
@@ -408,7 +421,7 @@ const profileStyles = StyleSheet.create({
   cardCount: {
     fontSize: 24,
     fontWeight: "bold",
-    color: "#333",
+    color: "#312651", // Changed to #312651 as requested
   },
   cardSubtitle: {
     fontSize: 12,
@@ -517,13 +530,13 @@ const profileStyles = StyleSheet.create({
   },
   activitySection: {
     marginBottom: 24,
-    marginTop: 0, // Explicitly set marginTop to 0
+    marginTop: 0,
   },
   sectionTitle: {
     fontSize: 18,
     fontWeight: "bold",
     color: "#116461",
-    marginBottom: 12, // Reduced from 16 to 12
+    marginBottom: 12,
   },
   activityItem: {
     flexDirection: "row",
@@ -545,12 +558,15 @@ const profileStyles = StyleSheet.create({
   activityTitle: {
     fontSize: 14,
     fontWeight: "600",
-    color: "#333",
+    color: "#312651", // Changed to #312651 as requested
     marginBottom: 2,
   },
   activitySubtitle: {
     fontSize: 12,
     color: "#666",
+  },
+  employerName: {
+    color: "#444262", // Added new style for employer name with color #444262
   },
   modalOverlay: {
     flex: 1,

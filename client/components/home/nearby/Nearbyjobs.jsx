@@ -39,7 +39,7 @@ const Nearbyjobs = () => {
         ) : error ? (
           <Text>Something Went Wrong</Text>
         ) : (
-          data?.map((job) => (
+          data?.slice(0, 7).map((job) => (
             <NearbyJobCard
               job={job}
               key={`nearby-jobs-${job.job_id}`}
