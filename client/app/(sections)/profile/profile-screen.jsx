@@ -63,6 +63,14 @@ const Profile = () => {
   const { user, setUser } = useContext(TimerContext);
   const router = useRouter();
 
+  // Fix for last browsed job display
+  const hasLastBrowsedJob = user?.lastBrowsedJob && user.lastBrowsedJob.job_id;
+  
+  // Get the last saved job (assuming MongoDB stores new documents at the end of array)
+  const lastSavedJob = user?.savedJobs?.length > 0 
+    ? user.savedJobs[user.savedJobs.length - 1] 
+    : null;
+
   const toggleSavedJobs = () => {
     setShowSavedJobs(!showSavedJobs);
   };
@@ -126,8 +134,8 @@ const Profile = () => {
           </View>
           <View style={profileStyles.statDivider} />
           <View style={profileStyles.statItem}>
-            <Text style={profileStyles.statValue}>12</Text>
-            <Text style={profileStyles.statLabel}>Applications</Text>
+            <Text style={profileStyles.statValue}>{user?.noOfJobsBrowsed}</Text>
+            <Text style={profileStyles.statLabel}>Jobs Viewed</Text>
           </View>
         </View>
 
@@ -181,22 +189,34 @@ const Profile = () => {
           )}
         </View>
 
-        {/* Activity Section */}
+        {/* Activity Section - FIXED TOP MARGIN */}
         <View style={profileStyles.activitySection}>
           <Text style={profileStyles.sectionTitle}>Recent Activity</Text>
+          
+          {/* Last Browsed Job */}
           <View style={profileStyles.activityItem}>
             <View style={profileStyles.activityIconContainer}>
               <Ionicons name="time" size={20} color="#fff" />
             </View>
-            <View style={profileStyles.activityContent}>
-              <Text style={profileStyles.activityTitle}>
-                Browsed UX Designer Jobs
-              </Text>
-              <Text style={profileStyles.activitySubtitle}>
-                Google Inc. • 2 days ago
-              </Text>
-            </View>
+            
+            {hasLastBrowsedJob ? (
+              <View style={profileStyles.activityContent}>
+                <Text style={profileStyles.activityTitle}>
+                  {user.lastBrowsedJob.job_title && user.lastBrowsedJob.job_title.slice(0, 24)}
+                </Text>
+                <Text style={profileStyles.activitySubtitle}>
+                  {user.lastBrowsedJob.employer_name}
+                </Text>
+              </View>
+            ) : (
+              <View style={profileStyles.activityContent}>
+                <Text style={profileStyles.activityTitle}>Recent Job Views</Text>
+                <Text style={profileStyles.activitySubtitle}>No Jobs Viewed</Text>
+              </View>
+            )}
           </View>
+          
+          {/* Last Saved Job */}
           <View style={profileStyles.activityItem}>
             <View
               style={[
@@ -206,12 +226,20 @@ const Profile = () => {
             >
               <Ionicons name="bookmark" size={20} color="#fff" />
             </View>
-            <View style={profileStyles.activityContent}>
-              <Text style={profileStyles.activityTitle}>Saved a new job</Text>
-              <Text style={profileStyles.activitySubtitle}>
-                Product Manager at Amazon • 3 days ago
-              </Text>
-            </View>
+            
+            {lastSavedJob ? (
+              <View style={profileStyles.activityContent}>
+                <Text style={profileStyles.activityTitle}>Saved a new job</Text>
+                <Text style={profileStyles.activitySubtitle}>
+                  {lastSavedJob.job_title} at {lastSavedJob.employer_name}
+                </Text>
+              </View>
+            ) : (
+              <View style={profileStyles.activityContent}>
+                <Text style={profileStyles.activityTitle}>Saved Jobs</Text>
+                <Text style={profileStyles.activitySubtitle}>No Saved Jobs</Text>
+              </View>
+            )}
           </View>
         </View>
       </ScrollView>
@@ -336,7 +364,7 @@ const profileStyles = StyleSheet.create({
     alignSelf: "center",
   },
   cardsSection: {
-    marginBottom: 20,
+    marginBottom: 10, // Reduced margin from 20 to 10
   },
   card: {
     backgroundColor: "#fff",
@@ -475,12 +503,13 @@ const profileStyles = StyleSheet.create({
   },
   activitySection: {
     marginBottom: 24,
+    marginTop: 0, // Explicitly set marginTop to 0
   },
   sectionTitle: {
     fontSize: 18,
     fontWeight: "bold",
     color: "#116461",
-    marginBottom: 16,
+    marginBottom: 12, // Reduced from 16 to 12
   },
   activityItem: {
     flexDirection: "row",
