@@ -1,0 +1,536 @@
+import React, { useState } from "react";
+import {
+  View,
+  Text,
+  Image,
+  TouchableOpacity,
+  ScrollView,
+  FlatList,
+  StyleSheet,
+  Modal,
+} from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
+import { Ionicons } from "@expo/vector-icons";
+
+const ProfileCard = ({ title, count, onPress, icon }) => (
+  <TouchableOpacity style={profileStyles.card} onPress={onPress}>
+    <View style={profileStyles.cardHeader}>
+      <Ionicons name={icon} size={24} color="#116461" />
+      <Text style={profileStyles.cardTitle}>{title}</Text>
+    </View>
+    <View style={profileStyles.cardContent}>
+      <Text style={profileStyles.cardCount}>{count}</Text>
+      <Text style={profileStyles.cardSubtitle}>Items</Text>
+    </View>
+    <View style={profileStyles.cardFooter}>
+      <Text style={profileStyles.viewAll}>View All</Text>
+      <Ionicons name="chevron-forward" size={16} color="#116461" />
+    </View>
+  </TouchableOpacity>
+);
+
+const JobItem = ({ job }) => (
+  <View style={profileStyles.jobItem}>
+    <View style={profileStyles.jobIconContainer}>
+      <Ionicons name="briefcase" size={24} color="#116461" />
+    </View>
+    <View style={profileStyles.jobDetails}>
+      <Text style={profileStyles.jobTitle}>{job.title}</Text>
+      <Text style={profileStyles.jobCompany}>{job.company}</Text>
+    </View>
+    <TouchableOpacity style={profileStyles.applyButton}>
+      <Text style={profileStyles.applyButtonText}>Apply</Text>
+    </TouchableOpacity>
+  </View>
+);
+
+const AffirmationItem = ({ item }) => (
+  <View style={profileStyles.affirmationItem}>
+    <Text style={profileStyles.affirmationText}>{item.text}</Text>
+    <TouchableOpacity style={profileStyles.saveButton}>
+      <Ionicons name="bookmark" size={18} color="#fff" />
+    </TouchableOpacity>
+  </View>
+);
+
+const Profile = () => {
+  const [showSavedJobs, setShowSavedJobs] = useState(false);
+  const [showAffirmations, setShowAffirmations] = useState(false);
+  const [showLogoutModal, setShowLogoutModal] = useState(false);
+
+  const userData = {
+    name: "Jessica Parker",
+    email: "jessica.parker@example.com",
+    avatar: "https://cdn.pixabay.com/photo/2024/09/04/06/55/man-9020932_1280.png",
+    savedJobs: [
+      { id: "1", title: "UX Designer", company: "Google Inc." },
+      { id: "2", title: "React Native Developer", company: "Facebook" },
+      { id: "3", title: "Product Manager", company: "Amazon" },
+    ],
+    savedAffirmations: [
+      { id: "1", text: "I am capable of achieving my career goals" },
+      { id: "2", text: "Every day I'm getting closer to my dream job" },
+      { id: "3", text: "I have the skills employers are looking for" },
+      { id: "4", text: "I am confident in interviews and presentations" },
+    ],
+  };
+
+  const toggleSavedJobs = () => {
+    setShowSavedJobs(!showSavedJobs);
+  };
+
+  const toggleAffirmations = () => {
+    setShowAffirmations(!showAffirmations);
+  };
+
+  const toggleLogoutModal = () => {
+    setShowLogoutModal(!showLogoutModal);
+  };
+
+  const handleLogout = () => {
+    // Logout functionality would go here
+    setShowLogoutModal(false);
+    // Additional logout logic
+  };
+
+  return (
+    <SafeAreaView style={{ flex: 1, backgroundColor: "#a2b8a0" }}>
+      <ScrollView contentContainerStyle={profileStyles.container}>
+        {/* Header and Avatar Section */}
+        <View style={profileStyles.header}>
+          <TouchableOpacity 
+            style={profileStyles.settingsButton}
+            onPress={toggleLogoutModal}
+          >
+            <Ionicons name="settings-outline" size={24} color="#116461" />
+          </TouchableOpacity>
+          
+          <View style={profileStyles.avatarContainer}>
+            <Image
+              source={{ uri: userData.avatar }}
+              style={profileStyles.avatar}
+            />
+          </View>
+          
+          <Text style={profileStyles.userName}>{userData.name}</Text>
+          <Text style={profileStyles.userEmail}>{userData.email}</Text>
+          
+        </View>
+
+        {/* User Stats */}
+        <View style={profileStyles.statsContainer}>
+          <View style={profileStyles.statItem}>
+            <Text style={profileStyles.statValue}>{userData.savedJobs.length}</Text>
+            <Text style={profileStyles.statLabel}>Saved Jobs</Text>
+          </View>
+          <View style={profileStyles.statDivider} />
+          <View style={profileStyles.statItem}>
+            <Text style={profileStyles.statValue}>{userData.savedAffirmations.length}</Text>
+            <Text style={profileStyles.statLabel}>Affirmations</Text>
+          </View>
+          <View style={profileStyles.statDivider} />
+          <View style={profileStyles.statItem}>
+            <Text style={profileStyles.statValue}>12</Text>
+            <Text style={profileStyles.statLabel}>Applications</Text>
+          </View>
+        </View>
+
+        {/* Cards Section */}
+        <View style={profileStyles.cardsSection}>
+          <ProfileCard
+            title="Saved Jobs"
+            count={userData.savedJobs.length}
+            icon="briefcase"
+            onPress={toggleSavedJobs}
+          />
+          
+          {showSavedJobs && (
+            <View style={profileStyles.expandedSection}>
+              <FlatList
+                data={userData.savedJobs}
+                renderItem={({ item }) => <JobItem job={item} />}
+                keyExtractor={(item) => item.id}
+                scrollEnabled={false}
+              />
+              <TouchableOpacity style={profileStyles.seeMoreButton}>
+                <Text style={profileStyles.seeMoreText}>See More</Text>
+              </TouchableOpacity>
+            </View>
+          )}
+
+          <ProfileCard
+            title="Saved Affirmations"
+            count={userData.savedAffirmations.length}
+            icon="sunny"
+            onPress={toggleAffirmations}
+          />
+          
+          {showAffirmations && (
+            <View>
+              <ScrollView
+                horizontal
+                showsHorizontalScrollIndicator={false}
+                style={profileStyles.affirmationsContainer}
+              >
+                {userData.savedAffirmations.map((item) => (
+                  <AffirmationItem key={item.id} item={item} />
+                ))}
+              </ScrollView>
+              <TouchableOpacity style={profileStyles.seeMoreButton}>
+                <Text style={profileStyles.seeMoreText}>See All Affirmations</Text>
+              </TouchableOpacity>
+            </View>
+          )}
+        </View>
+
+        {/* Activity Section */}
+        <View style={profileStyles.activitySection}>
+          <Text style={profileStyles.sectionTitle}>Recent Activity</Text>
+          <View style={profileStyles.activityItem}>
+            <View style={profileStyles.activityIconContainer}>
+              <Ionicons name="time" size={20} color="#fff" />
+            </View>
+            <View style={profileStyles.activityContent}>
+              <Text style={profileStyles.activityTitle}>Browsed UX Designer Jobs</Text>
+              <Text style={profileStyles.activitySubtitle}>Google Inc. • 2 days ago</Text>
+            </View>
+          </View>
+          <View style={profileStyles.activityItem}>
+            <View style={[profileStyles.activityIconContainer, { backgroundColor: "#e58e40" }]}>
+              <Ionicons name="bookmark" size={20} color="#fff" />
+            </View>
+            <View style={profileStyles.activityContent}>
+              <Text style={profileStyles.activityTitle}>Saved a new job</Text>
+              <Text style={profileStyles.activitySubtitle}>Product Manager at Amazon • 3 days ago</Text>
+            </View>
+          </View>
+        </View>
+
+      </ScrollView>
+
+      {/* Logout Modal */}
+      <Modal
+        transparent={true}
+        visible={showLogoutModal}
+        animationType="fade"
+        onRequestClose={toggleLogoutModal}
+      >
+        <TouchableOpacity 
+          style={profileStyles.modalOverlay} 
+          activeOpacity={1} 
+          onPress={toggleLogoutModal}
+        >
+          <View style={profileStyles.logoutModalContainer}>
+            <TouchableOpacity 
+              style={profileStyles.logoutButton}
+              onPress={handleLogout}
+            >
+              <Ionicons name="log-out-outline" size={20} color="#fff" />
+              <Text style={profileStyles.logoutButtonText}>Logout</Text>
+            </TouchableOpacity>
+          </View>
+        </TouchableOpacity>
+      </Modal>
+    </SafeAreaView>
+  );
+};
+
+const profileStyles = StyleSheet.create({
+  container: {
+    padding: 16,
+    paddingBottom: 32,
+  },
+  header: {
+    alignItems: "center",
+    position: "relative",
+    marginBottom: 20,
+  },
+  settingsButton: {
+    position: "absolute",
+    right: 0,
+    top: 0,
+    padding: 8,
+  },
+  avatarContainer: {
+    position: "relative",
+    marginBottom: 12,
+  },
+  avatar: {
+    width: 120,
+    height: 120,
+    borderRadius: 100,
+    borderWidth: 3,
+    borderColor: "#fff",
+  },
+  editAvatarButton: {
+    position: "absolute",
+    bottom: 0,
+    right: 0,
+    backgroundColor: "#e58e40",
+    width: 30,
+    height: 30,
+    borderRadius: 15,
+    justifyContent: "center",
+    alignItems: "center",
+    borderWidth: 2,
+    borderColor: "#fff",
+  },
+  userName: {
+    fontSize: 22,
+    fontWeight: "bold",
+    color: "#116461",
+    marginBottom: 4,
+  },
+  userEmail: {
+    fontSize: 14,
+    color: "#555",
+    marginBottom: 16,
+  },
+  editProfileButton: {
+    paddingVertical: 6,
+    paddingHorizontal: 12,
+    borderRadius: 20,
+    borderWidth: 1,
+    borderColor: "#116461",
+    backgroundColor: "transparent",
+  },
+  editProfileText: {
+    color: "#116461",
+    fontSize: 12,
+    fontWeight: "600",
+  },
+  statsContainer: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    backgroundColor: "#f5f5f5",
+    borderRadius: 12,
+    padding: 16,
+    marginBottom: 20,
+  },
+  statItem: {
+    flex: 1,
+    alignItems: "center",
+  },
+  statValue: {
+    fontSize: 20,
+    fontWeight: "bold",
+    color: "#116461",
+    marginBottom: 4,
+  },
+  statLabel: {
+    fontSize: 12,
+    color: "#666",
+  },
+  statDivider: {
+    width: 1,
+    backgroundColor: "#ddd",
+    height: "80%",
+    alignSelf: "center",
+  },
+  cardsSection: {
+    marginBottom: 20,
+  },
+  card: {
+    backgroundColor: "#fff",
+    borderRadius: 16,
+    padding: 16,
+    marginBottom: 16,
+    elevation: 2,
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 1 },
+    shadowOpacity: 0.1,
+    shadowRadius: 2,
+  },
+  cardHeader: {
+    flexDirection: "row",
+    alignItems: "center",
+    marginBottom: 12,
+  },
+  cardTitle: {
+    fontSize: 16,
+    fontWeight: "600",
+    color: "#116461",
+    marginLeft: 10,
+  },
+  cardContent: {
+    marginBottom: 12,
+  },
+  cardCount: {
+    fontSize: 24,
+    fontWeight: "bold",
+    color: "#333",
+  },
+  cardSubtitle: {
+    fontSize: 12,
+    color: "#666",
+  },
+  cardFooter: {
+    flexDirection: "row",
+    alignItems: "center",
+  },
+  viewAll: {
+    fontSize: 12,
+    color: "#116461",
+    fontWeight: "600",
+    marginRight: 4,
+  },
+  expandedSection: {
+    marginTop: -8,
+    marginBottom: 16,
+  },
+  jobItem: {
+    flexDirection: "row",
+    alignItems: "center",
+    backgroundColor: "#f5f5f5",
+    borderRadius: 10,
+    padding: 12,
+    marginBottom: 8,
+  },
+  jobIconContainer: {
+    width: 40,
+    height: 40,
+    borderRadius: 8,
+    backgroundColor: "#e8f0e7",
+    justifyContent: "center",
+    alignItems: "center",
+    marginRight: 12,
+  },
+  jobDetails: {
+    flex: 1,
+  },
+  jobTitle: {
+    fontSize: 14,
+    fontWeight: "600",
+    color: "#333",
+    marginBottom: 2,
+  },
+  jobCompany: {
+    fontSize: 12,
+    color: "#666",
+  },
+  applyButton: {
+    backgroundColor: "#e58e40",
+    paddingVertical: 6,
+    paddingHorizontal: 12,
+    borderRadius: 8,
+  },
+  applyButtonText: {
+    color: "#fff",
+    fontSize: 12,
+    fontWeight: "600",
+  },
+  seeMoreButton: {
+    alignItems: "center",
+    paddingVertical: 8,
+  },
+  seeMoreText: {
+    color: "#116461",
+    fontWeight: "600",
+    fontSize: 14,
+  },
+  affirmationsContainer: {
+    marginTop: 8,
+    marginBottom: 12,
+  },
+  affirmationItem: {
+    backgroundColor: "#e8f0e7",
+    borderRadius: 12,
+    padding: 16,
+    marginRight: 12,
+    width: 220,
+    position: "relative",
+    borderLeftWidth: 4,
+    borderLeftColor: "#116461",
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.1,
+    shadowRadius: 4,
+    elevation: 2,
+  },
+  affirmationText: {
+    fontSize: 14,
+    color: "#333",
+    marginBottom: 24,
+    fontWeight: "500",
+    fontStyle: "italic",
+  },
+  saveButton: {
+    position: "absolute",
+    bottom: 12,
+    right: 12,
+    backgroundColor: "#116461",
+    width: 30,
+    height: 30,
+    borderRadius: 15,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  activitySection: {
+    marginBottom: 24,
+  },
+  sectionTitle: {
+    fontSize: 18,
+    fontWeight: "bold",
+    color: "#116461",
+    marginBottom: 16,
+  },
+  activityItem: {
+    flexDirection: "row",
+    alignItems: "center",
+    marginBottom: 16,
+  },
+  activityIconContainer: {
+    width: 36,
+    height: 36,
+    borderRadius: 18,
+    backgroundColor: "#116461",
+    justifyContent: "center",
+    alignItems: "center",
+    marginRight: 12,
+  },
+  activityContent: {
+    flex: 1,
+  },
+  activityTitle: {
+    fontSize: 14,
+    fontWeight: "600",
+    color: "#333",
+    marginBottom: 2,
+  },
+  activitySubtitle: {
+    fontSize: 12,
+    color: "#666",
+  },
+  modalOverlay: {
+    flex: 1,
+    backgroundColor: "rgba(0, 0, 0, 0.3)",
+  },
+  logoutModalContainer: {
+    position: "absolute",
+    top: 60,
+    right: 20,
+    backgroundColor: "#fff",
+    borderRadius: 8,
+    padding: 8,
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.2,
+    shadowRadius: 4,
+    elevation: 5,
+  },
+  logoutButton: {
+    flexDirection: "row",
+    alignItems: "center",
+    backgroundColor: "#e58e40",
+    paddingVertical: 8,
+    paddingHorizontal: 12,
+    borderRadius: 6,
+  },
+  logoutButtonText: {
+    color: "#fff",
+    fontWeight: "600",
+    marginLeft: 8,
+  },
+});
+
+export default Profile;

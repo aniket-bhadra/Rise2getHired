@@ -7,7 +7,7 @@ const profileLayout = () => {
   return (
     <SafeAreaProvider>
       <Stack>
-        <Stack.Screen name="profile" options={{ headerShown: false }} />
+        <Stack.Screen name="profile-screen" options={{ headerShown: false }} />
       </Stack>
     </SafeAreaProvider>
   );
