@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   View,
   Text,
@@ -32,20 +32,29 @@ const ProfileCard = ({ title, count, onPress, icon }) => (
   </TouchableOpacity>
 );
 
-const JobItem = ({ job }) => (
-  <View style={profileStyles.jobItem}>
-    <View style={profileStyles.jobIconContainer}>
-      <Ionicons name="briefcase" size={24} color="#116461" />
+const JobItem = ({ job }) => {
+  const router = useRouter();
+
+  return (
+    <View style={profileStyles.jobItem}>
+      <View style={profileStyles.jobIconContainer}>
+        <Ionicons name="briefcase" size={24} color="#116461" />
+      </View>
+      <View style={profileStyles.jobDetails}>
+        <Text style={profileStyles.jobTitle}>
+          {job.job_title.slice(0, 25) + ".."}
+        </Text>
+        <Text style={profileStyles.jobCompany}>{job.job_employment_type}</Text>
+      </View>
+      <TouchableOpacity
+        style={profileStyles.applyButton}
+        onPress={() => router.push(`/jobs/job-details/${job.job_id}`)}
+      >
+        <Text style={profileStyles.applyButtonText}>View</Text>
+      </TouchableOpacity>
     </View>
-    <View style={profileStyles.jobDetails}>
-      <Text style={profileStyles.jobTitle}>{job.title}</Text>
-      <Text style={profileStyles.jobCompany}>{job.company}</Text>
-    </View>
-    <TouchableOpacity style={profileStyles.applyButton}>
-      <Text style={profileStyles.applyButtonText}>Apply</Text>
-    </TouchableOpacity>
-  </View>
-);
+  );
+};
 
 const AffirmationItem = ({ item }) => (
   <View style={profileStyles.affirmationItem}>
@@ -65,11 +74,12 @@ const Profile = () => {
 
   // Fix for last browsed job display
   const hasLastBrowsedJob = user?.lastBrowsedJob && user.lastBrowsedJob.job_id;
-  
+
   // Get the last saved job (assuming MongoDB stores new documents at the end of array)
-  const lastSavedJob = user?.savedJobs?.length > 0 
-    ? user.savedJobs[user.savedJobs.length - 1] 
-    : null;
+  const lastSavedJob =
+    user?.savedJobs?.length > 0
+      ? user.savedJobs[user.savedJobs.length - 1]
+      : null;
 
   const toggleSavedJobs = () => {
     setShowSavedJobs(!showSavedJobs);
@@ -153,7 +163,7 @@ const Profile = () => {
               <FlatList
                 data={user?.savedJobs}
                 renderItem={({ item }) => <JobItem job={item} />}
-                keyExtractor={(item) => item._id}
+                keyExtractor={(item) => item.job_id}
                 scrollEnabled={false}
               />
               <TouchableOpacity style={profileStyles.seeMoreButton}>
@@ -192,17 +202,18 @@ const Profile = () => {
         {/* Activity Section - FIXED TOP MARGIN */}
         <View style={profileStyles.activitySection}>
           <Text style={profileStyles.sectionTitle}>Recent Activity</Text>
-          
+
           {/* Last Browsed Job */}
           <View style={profileStyles.activityItem}>
             <View style={profileStyles.activityIconContainer}>
               <Ionicons name="time" size={20} color="#fff" />
             </View>
-            
+
             {hasLastBrowsedJob ? (
               <View style={profileStyles.activityContent}>
                 <Text style={profileStyles.activityTitle}>
-                  {user.lastBrowsedJob.job_title && user.lastBrowsedJob.job_title.slice(0, 24)}
+                  {user.lastBrowsedJob.job_title &&
+                    user.lastBrowsedJob.job_title.slice(0, 24)}
                 </Text>
                 <Text style={profileStyles.activitySubtitle}>
                   {user.lastBrowsedJob.employer_name}
@@ -210,12 +221,16 @@ const Profile = () => {
               </View>
             ) : (
               <View style={profileStyles.activityContent}>
-                <Text style={profileStyles.activityTitle}>Recent Job Views</Text>
-                <Text style={profileStyles.activitySubtitle}>No Jobs Viewed</Text>
+                <Text style={profileStyles.activityTitle}>
+                  Recent Job Views
+                </Text>
+                <Text style={profileStyles.activitySubtitle}>
+                  No Jobs Viewed
+                </Text>
               </View>
             )}
           </View>
-          
+
           {/* Last Saved Job */}
           <View style={profileStyles.activityItem}>
             <View
@@ -226,7 +241,7 @@ const Profile = () => {
             >
               <Ionicons name="bookmark" size={20} color="#fff" />
             </View>
-            
+
             {lastSavedJob ? (
               <View style={profileStyles.activityContent}>
                 <Text style={profileStyles.activityTitle}>Saved a new job</Text>
@@ -237,7 +252,9 @@ const Profile = () => {
             ) : (
               <View style={profileStyles.activityContent}>
                 <Text style={profileStyles.activityTitle}>Saved Jobs</Text>
-                <Text style={profileStyles.activitySubtitle}>No Saved Jobs</Text>
+                <Text style={profileStyles.activitySubtitle}>
+                  No Saved Jobs
+                </Text>
               </View>
             )}
           </View>

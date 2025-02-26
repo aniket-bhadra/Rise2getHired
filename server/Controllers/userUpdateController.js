@@ -9,7 +9,7 @@ export const saveJob = async (req, res) => {
       { $push: { savedJobs: job } },
       { new: true }
     );
-    res.json({ message: "Job saved", savedJobs: user.savedJobs });
+    res.json({ message: "Job saved", savedJobs: user.savedJobs, user });
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
@@ -27,6 +27,7 @@ export const saveAffirmation = async (req, res) => {
     res.json({
       message: "Affirmation saved",
       savedAffirmations: user.savedAffirmations,
+      user,
     });
   } catch (error) {
     res.status(500).json({ error: error.message });
