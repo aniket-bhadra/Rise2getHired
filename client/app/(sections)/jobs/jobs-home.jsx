@@ -15,21 +15,6 @@ const Home = () => {
   
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: "#a2b8a0" }}>
-      <Stack.Screen
-        options={{
-          headerStyle: {
-            backgroundColor: COLORS.lightWhite,
-          },
-          headerShadowVisible: false,
-          headerLeft: () => (
-            <ScreenHeaderBtn iconUrl={icons.menu} dimensions="60%" />
-          ),
-          headerRight: () => (
-            <ScreenHeaderBtn iconUrl={images.profile} dimensions="100%" />
-          ),
-          headerTitle: "",
-        }}
-      />
       <ScrollView showsVerticalScrollIndicator={false}>
         <View style={{ flex: 1, padding: SIZES.medium }}>
           <Welcome />

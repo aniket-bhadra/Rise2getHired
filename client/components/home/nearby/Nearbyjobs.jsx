@@ -6,20 +6,20 @@ import NearbyJobCard from "../../common/cards/nearby/NearbyJobCard";
 import styles from "./nearbyjobs.style";
 
 //! remove this
-import data from "../../../mockSearchData.json";
+// import data from "../../../mockSearchData.json";
 
 // !  import it, uncomment the option object inside useFetch
-// import { useFetch } from "../../../hook/useFetch";
+import { useFetch } from "../../../hook/useFetch";
 
 const Nearbyjobs = () => {
   const router = useRouter();
   // !  uncomment
-  // const { isLoading, error, data } = useFetch("search", {
-  //   query: "Remote jobs",
-  //   num_pages: 1,
-  // });
-  const isLoading = false;
-  const error = null;
+  const { isLoading, error, data } = useFetch("search", {
+    query: "Remote jobs",
+    num_pages: 1,
+  });
+  // const isLoading = false;
+  // const error = null;
 
   const showAllHandler = () => {
     router.push("/jobs/search/Remote Jobs");

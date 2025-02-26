@@ -14,7 +14,7 @@ import axios from "axios";
 import keys from "../../../../secure";
 
 // ! remove this
-import data from "../../../../mockSearchData.json";
+// import data from "../../../../mockSearchData.json";
 
 import { ScreenHeaderBtn, NearbyJobCard } from "../../../../components";
 import { COLORS, icons, SIZES } from "../../../../constants";
@@ -30,42 +30,42 @@ const JobSearch = () => {
   const [totalJobs, setTotalJobs] = useState(null);
 
   // ! uncomment this
-  //   const handleSearch = async () => {
-  //     setSearchLoader(true);
-  //     //  setSearchResult([]);
+  const handleSearch = async () => {
+    setSearchLoader(true);
+    //  setSearchResult([]);
 
-  //     try {
-  //       const options = {
-  //         method: "GET",
-  //         url: `https://jsearch.p.rapidapi.com/search`,
-  //         headers: {
-  //           "X-RapidAPI-Key": keys.RapidApiKey,
-  //           "X-RapidAPI-Host": "jsearch.p.rapidapi.com",
-  //         },
-  //         params: {
-  //           query: id,
-  //           page: page.toString(),
-  //         },
-  //       };
+    try {
+      const options = {
+        method: "GET",
+        url: `https://jsearch.p.rapidapi.com/search`,
+        headers: {
+          "X-RapidAPI-Key": keys.RapidApiKey,
+          "X-RapidAPI-Host": "jsearch.p.rapidapi.com",
+        },
+        params: {
+          query: id,
+          page: page.toString(),
+        },
+      };
 
-  //       const response = await axios.request(options);
+      const response = await axios.request(options);
 
-  //       setSearchResult(response.data.data);
-  //       // console.log(JSON.stringify(response.data.data, null, 2));
-  //       setTotalJobs(response.data.data.length);
-  //     } catch (error) {
-  //       setSearchError(error);
-  //       console.log(error);
-  //     } finally {
-  //       setSearchLoader(false);
-  //     }
-  //   };
-
-  //! remove this--
-  const handleSearch = () => {
-    setSearchResult(data);
-    setTotalJobs(data.length);
+      setSearchResult(response.data.data);
+      // console.log(JSON.stringify(response.data.data, null, 2));
+      setTotalJobs(response.data.data.length);
+    } catch (error) {
+      setSearchError(error);
+      console.log(error);
+    } finally {
+      setSearchLoader(false);
+    }
   };
+
+  // ! remove this--
+  // const handleSearch = () => {
+  //   setSearchResult(data);
+  //   setTotalJobs(data.length);
+  // };
 
   const handlePagination = (direction) => {
     if (direction === "left" && page > 1) {
@@ -83,21 +83,6 @@ const JobSearch = () => {
 
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: "#a2b8a0" }}>
-      <Stack.Screen
-        options={{
-          headerStyle: { backgroundColor: COLORS.lightWhite },
-          headerShadowVisible: false,
-          headerLeft: () => (
-            <ScreenHeaderBtn
-              iconUrl={icons.left}
-              dimension="60%"
-              handlePress={() => router.back()}
-            />
-          ),
-          headerTitle: "",
-        }}
-      />
-
       <FlatList
         data={searchResult}
         renderItem={({ item }) => (

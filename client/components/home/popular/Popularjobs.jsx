@@ -12,22 +12,22 @@ import PopularJobCard from "../../common/cards/popular/PopularJobCard";
 import styles from "./popularjobs.style";
 
 //! remove this
-import data from "../../../mockSearchData.json";
+// import data from "../../../mockSearchData.json";
 
 // !  import it, uncomment the option object inside useFetch
-// import { useFetch } from "../../../hook/useFetch";
+import { useFetch } from "../../../hook/useFetch";
 
 const Popularjobs = () => {
   const router = useRouter();
   const [selectedJob, setSelectedJob] = useState();
 
   // !  uncomment
-  // const { isLoading, error, data } = useFetch("search", {
-  //   query: "Popular jobs",
-  //   num_pages: 1,
-  // });
-  const isLoading = false;
-  const error = null;
+  const { isLoading, error, data } = useFetch("search", {
+    query: "react jobs",
+    num_pages: 1,
+  });
+  // const isLoading = false;
+  // const error = null;
 
   const handleCardPress = (item) => {
     // ! uncomment this
@@ -55,7 +55,7 @@ const Popularjobs = () => {
           <Text>Something Went Wrong</Text>
         ) : (
           <FlatList
-            data={data}
+            data={data?.slice(0, 7) || []}
             renderItem={({ item }) => {
               return (
                 <PopularJobCard

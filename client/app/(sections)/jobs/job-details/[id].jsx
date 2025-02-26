@@ -22,10 +22,10 @@ import {
 import { COLORS, icons, SIZES } from "../../../../constants";
 
 //! uncomment this
-import useFetch from "../../../../hook/useFetch";
+import { useFetch } from "../../../../hook/useFetch";
 
 //! remove this
-import data from "../../../../mockJobDetails.json";
+// import data from "../../../../mockJobDetails.json";
 
 const tabs = ["About", "Qualifications", "Responsibilities", "Benefits"];
 
@@ -34,9 +34,9 @@ const JobDetails = () => {
   const router = useRouter();
   const { user, setUser } = useContext(TimerContext);
   //! uncomment this
-  // const { data, isLoading, error } = useFetch("job-details", { job_id: id });
-  const isLoading = false;
-  const error = null;
+  const { data, isLoading, error } = useFetch("job-details", { job_id: id });
+  // const isLoading = false;
+  // const error = null;
   const [activeTab, setActiveTab] = useState(tabs[0]);
 
   // Update last browsed job when page loads
@@ -67,6 +67,7 @@ const JobDetails = () => {
   }, [data]);
 
   const displayTabContent = () => {
+    if (!data[0]) return <Text>Loading job details...</Text>;
     switch (activeTab) {
       case "Qualifications":
         return (
@@ -100,24 +101,6 @@ const JobDetails = () => {
 
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: "#a2b8a0" }}>
-      <Stack.Screen
-        options={{
-          headerStyle: { backgroundColor: COLORS.lightWhite },
-          headerShadowVisible: false,
-          headerBackVisible: false,
-          headerLeft: () => (
-            <ScreenHeaderBtn
-              iconUrl={icons.left}
-              dimensions="60%"
-              handlePress={() => router.back()}
-            />
-          ),
-          headerRight: () => (
-            <ScreenHeaderBtn iconUrl={icons.share} dimensions="60%" />
-          ),
-          headerTitle: "",
-        }}
-      />
       <ScrollView showsVerticalScrollIndicator={false}>
         {isLoading ? (
           <ActivityIndicator size="large" color={COLORS.primary} />
@@ -143,12 +126,11 @@ const JobDetails = () => {
           </View>
         )}
       </ScrollView>
-
       <JobFooter
         url={
           data[0]?.job_google_link ?? "https://careers.google.com/jobs/results"
         }
-        job={data[0]}
+        job={data[0] || {}} // Provide a default empty object if data[0] is undefined
       />
     </SafeAreaView>
   );
