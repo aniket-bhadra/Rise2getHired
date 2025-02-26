@@ -3,7 +3,7 @@ import {
   saveJob,
   saveAffirmation,
   updateLastBrowsedJob,
-} from "../Controllers/userController.js";
+} from "../Controllers/userUpdateController.js";
 
 const router = express.Router();
 

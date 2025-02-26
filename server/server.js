@@ -4,6 +4,7 @@ import dotenv from "dotenv";
 import { PORT } from "./config/config.js";
 import connectDB from "./config/connect.js";
 import UserRoutes from "./Routes/userRoutes.js";
+import userUpdateRoutes from "./Routes/userUpdateRoutes.js";
 
 dotenv.config();
 
@@ -16,6 +17,7 @@ app.get("/", (req, res) => {
 });
 
 app.use("/api/user", UserRoutes);
+app.use("/api/user", userUpdateRoutes);
 
 const start = async () => {
   try {
