@@ -11,6 +11,9 @@ import {
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { Ionicons } from "@expo/vector-icons";
+import { TimerContext } from "../../../context/TimerContext";
+import { useContext } from "react";
+import { useRouter } from "expo-router";
 
 const ProfileCard = ({ title, count, onPress, icon }) => (
   <TouchableOpacity style={profileStyles.card} onPress={onPress}>
@@ -57,23 +60,8 @@ const Profile = () => {
   const [showSavedJobs, setShowSavedJobs] = useState(false);
   const [showAffirmations, setShowAffirmations] = useState(false);
   const [showLogoutModal, setShowLogoutModal] = useState(false);
-
-  const userData = {
-    name: "Jessica Parker",
-    email: "jessica.parker@example.com",
-    avatar: "https://cdn.pixabay.com/photo/2024/09/04/06/55/man-9020932_1280.png",
-    savedJobs: [
-      { id: "1", title: "UX Designer", company: "Google Inc." },
-      { id: "2", title: "React Native Developer", company: "Facebook" },
-      { id: "3", title: "Product Manager", company: "Amazon" },
-    ],
-    savedAffirmations: [
-      { id: "1", text: "I am capable of achieving my career goals" },
-      { id: "2", text: "Every day I'm getting closer to my dream job" },
-      { id: "3", text: "I have the skills employers are looking for" },
-      { id: "4", text: "I am confident in interviews and presentations" },
-    ],
-  };
+  const { user, setUser } = useContext(TimerContext);
+  const router = useRouter();
 
   const toggleSavedJobs = () => {
     setShowSavedJobs(!showSavedJobs);
@@ -88,9 +76,17 @@ const Profile = () => {
   };
 
   const handleLogout = () => {
-    // Logout functionality would go here
+    setUser({
+      name: "",
+      email: "",
+      pic: "https://icon-library.com/images/anonymous-avatar-icon/anonymous-avatar-icon-25.jpg",
+      savedJobs: [],
+      savedAffirmations: [],
+      lastBrowsedJob: {},
+      noOfJobsBrowsed: 0,
+    });
     setShowLogoutModal(false);
-    // Additional logout logic
+    router.push("/");
   };
 
   return (
@@ -98,34 +94,34 @@ const Profile = () => {
       <ScrollView contentContainerStyle={profileStyles.container}>
         {/* Header and Avatar Section */}
         <View style={profileStyles.header}>
-          <TouchableOpacity 
+          <TouchableOpacity
             style={profileStyles.settingsButton}
             onPress={toggleLogoutModal}
           >
             <Ionicons name="settings-outline" size={24} color="#116461" />
           </TouchableOpacity>
-          
+
           <View style={profileStyles.avatarContainer}>
-            <Image
-              source={{ uri: userData.avatar }}
-              style={profileStyles.avatar}
-            />
+            <Image source={{ uri: user.pic }} style={profileStyles.avatar} />
           </View>
-          
-          <Text style={profileStyles.userName}>{userData.name}</Text>
-          <Text style={profileStyles.userEmail}>{userData.email}</Text>
-          
+
+          <Text style={profileStyles.userName}>{user.name}</Text>
+          <Text style={profileStyles.userEmail}>{user.email}</Text>
         </View>
 
         {/* User Stats */}
         <View style={profileStyles.statsContainer}>
           <View style={profileStyles.statItem}>
-            <Text style={profileStyles.statValue}>{userData.savedJobs.length}</Text>
+            <Text style={profileStyles.statValue}>
+              {user?.savedJobs?.length}
+            </Text>
             <Text style={profileStyles.statLabel}>Saved Jobs</Text>
           </View>
           <View style={profileStyles.statDivider} />
           <View style={profileStyles.statItem}>
-            <Text style={profileStyles.statValue}>{userData.savedAffirmations.length}</Text>
+            <Text style={profileStyles.statValue}>
+              {user?.savedAffirmations?.length}
+            </Text>
             <Text style={profileStyles.statLabel}>Affirmations</Text>
           </View>
           <View style={profileStyles.statDivider} />
@@ -139,17 +135,17 @@ const Profile = () => {
         <View style={profileStyles.cardsSection}>
           <ProfileCard
             title="Saved Jobs"
-            count={userData.savedJobs.length}
+            count={user?.savedJobs?.length}
             icon="briefcase"
             onPress={toggleSavedJobs}
           />
-          
+
           {showSavedJobs && (
             <View style={profileStyles.expandedSection}>
               <FlatList
-                data={userData.savedJobs}
+                data={user?.savedJobs}
                 renderItem={({ item }) => <JobItem job={item} />}
-                keyExtractor={(item) => item.id}
+                keyExtractor={(item) => item._id}
                 scrollEnabled={false}
               />
               <TouchableOpacity style={profileStyles.seeMoreButton}>
@@ -160,11 +156,11 @@ const Profile = () => {
 
           <ProfileCard
             title="Saved Affirmations"
-            count={userData.savedAffirmations.length}
+            count={user?.savedAffirmations?.length}
             icon="sunny"
             onPress={toggleAffirmations}
           />
-          
+
           {showAffirmations && (
             <View>
               <ScrollView
@@ -172,12 +168,14 @@ const Profile = () => {
                 showsHorizontalScrollIndicator={false}
                 style={profileStyles.affirmationsContainer}
               >
-                {userData.savedAffirmations.map((item) => (
-                  <AffirmationItem key={item.id} item={item} />
+                {user?.savedAffirmations.map((item, index) => (
+                  <AffirmationItem key={`affirmations--${index}`} item={item} />
                 ))}
               </ScrollView>
               <TouchableOpacity style={profileStyles.seeMoreButton}>
-                <Text style={profileStyles.seeMoreText}>See All Affirmations</Text>
+                <Text style={profileStyles.seeMoreText}>
+                  See All Affirmations
+                </Text>
               </TouchableOpacity>
             </View>
           )}
@@ -191,21 +189,31 @@ const Profile = () => {
               <Ionicons name="time" size={20} color="#fff" />
             </View>
             <View style={profileStyles.activityContent}>
-              <Text style={profileStyles.activityTitle}>Browsed UX Designer Jobs</Text>
-              <Text style={profileStyles.activitySubtitle}>Google Inc. • 2 days ago</Text>
+              <Text style={profileStyles.activityTitle}>
+                Browsed UX Designer Jobs
+              </Text>
+              <Text style={profileStyles.activitySubtitle}>
+                Google Inc. • 2 days ago
+              </Text>
             </View>
           </View>
           <View style={profileStyles.activityItem}>
-            <View style={[profileStyles.activityIconContainer, { backgroundColor: "#e58e40" }]}>
+            <View
+              style={[
+                profileStyles.activityIconContainer,
+                { backgroundColor: "#e58e40" },
+              ]}
+            >
               <Ionicons name="bookmark" size={20} color="#fff" />
             </View>
             <View style={profileStyles.activityContent}>
               <Text style={profileStyles.activityTitle}>Saved a new job</Text>
-              <Text style={profileStyles.activitySubtitle}>Product Manager at Amazon • 3 days ago</Text>
+              <Text style={profileStyles.activitySubtitle}>
+                Product Manager at Amazon • 3 days ago
+              </Text>
             </View>
           </View>
         </View>
-
       </ScrollView>
 
       {/* Logout Modal */}
@@ -215,13 +223,13 @@ const Profile = () => {
         animationType="fade"
         onRequestClose={toggleLogoutModal}
       >
-        <TouchableOpacity 
-          style={profileStyles.modalOverlay} 
-          activeOpacity={1} 
+        <TouchableOpacity
+          style={profileStyles.modalOverlay}
+          activeOpacity={1}
           onPress={toggleLogoutModal}
         >
           <View style={profileStyles.logoutModalContainer}>
-            <TouchableOpacity 
+            <TouchableOpacity
               style={profileStyles.logoutButton}
               onPress={handleLogout}
             >
