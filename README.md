@@ -16,8 +16,7 @@ Beyond job searching, the app features a built-in coding editor for practicing i
 
 Experience the project in action:
 
-- 🌐 [Live Demo Link](https://your-demo-link.com)
-- 🎥 [Video Demo](https://your-video-demo-link.com)
+- 🌐 [Live Demo Link](https://aniket-bhadra.github.io/)
 
 ## 📸 Preview
 
@@ -73,47 +72,30 @@ _Track your job search progress and saved content in your profile dashboard._
 
 ### Search Results
 
-<details>
-<summary>View Screenshot</summary>
-
 <img src="READMEASSETS/photos/2.png" alt="Home Page Extended" width="800"/>
 
 _Comprehensive search results with filtering options for job title and location_
 
-</details>
 
 ### Different Sections-1
-
-<details>
-<summary>View Screenshot</summary>
 
 <img src="READMEASSETS/photos/3.png" alt="Different Sections-1" width="800"/>
 
 _Job detail view with description, requirements, and application options in a clean interface_
 
-</details>
 
 ### Different Sections-2
-
-<details>
-<summary>View Screenshot</summary>
 
 <img src="READMEASSETS/photos/4.png" alt="Different Sections-2" width="800"/>
 
 _Code editor interface with syntax highlighting and execution capabilities for technical interview preparation_
 
-</details>
-
 ### Different Sections-3
-
-<details>
-<summary>View Screenshot</summary>
 
 <img src="READMEASSETS/photos/5.png" alt="Different Sections-3" width="800"/>
 
 _Meditation section with timer controls and ambient sound selection for stress management_
 
-</details>
 
 ## ✨ Features
 
@@ -224,11 +206,11 @@ We welcome contributions! Please follow these steps:
 4. Push to the branch (`git push origin feature/AmazingFeature`)
 5. Open a Pull Request
 
+
 ## 📬 Contact
 
-- Your Name - [@yourtwitter](https://twitter.com/yourtwitter)
-- Email - your.email@example.com
-- Project Link: [https://github.com/yourusername/projectname](https://github.com/yourusername/projectname)
+- linkedin - [https://www.linkedin.com/in/aniket-bhadra/](https://www.linkedin.com/in/aniket-bhadra/)
+- Email - aniketbhadra2@gmail.com
 
 ## 📊 Project Metrics
 
