@@ -247,4 +247,4 @@ We welcome contributions! Please follow these steps:
 - 💻 Integrate More Language Support in Code Editor (Python, Java, etc.) ▓░░░░░░░░░░░░░░░░░░░░░ 5%
 - 💬 Job Community Messaging & Mentorship ░░░░░░░░░░░░░░░░░░░░░░ 0%
 
-Made with ❤️ by [Your Name](https://github.com/yourusername)
+Made with ❤️ by [Aniket Bhadra](https://github.com/aniket-bhadra/)
